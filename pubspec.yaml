@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+4
 
 environment:
-  sdk: ">=2.10.2 <3.0.0"
+  sdk: ">=2.10.3 <3.0.0"
 
 
 dependencies:
@@ -17,30 +17,30 @@ dependencies:
   permission:
     git:
       url: https://github.com/kamlesh9070/permission
-  path_provider: ^1.6.21
+  path_provider: ^1.6.24
   cupertino_icons: ^1.0.0
-  firebase_auth: ^0.18.1+2
-  google_maps_flutter: ^1.0.3
+  firebase_auth: ^0.18.2
+  google_maps_flutter: ^1.0.6
   image_picker: ^0.6.7+12
-  url_launcher: ^5.7.5
+  url_launcher: ^5.7.10
   intl: ^0.16.1
   font_awesome_flutter: ^8.10.0
   rxdart: ^0.24.1
   json_annotation: ^3.1.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-  package_info: ^0.4.3
-  super_enum: ^0.4.2
+  package_info: ^0.4.3+2
+  super_enum: ^0.5.0
 
-# todo (dev dep) super_enum_generator 0.5.0 depends on analyzer ^0.39.2
-# super_enum_generator: ^0.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
   json_serializable:
-  hive_generator: ^0.8.1
-  analyzer: ^0.40.4
+  hive_generator: ^0.8.2
+  super_enum_generator: ^0.6.0
+  analyzer: ^0.40.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
