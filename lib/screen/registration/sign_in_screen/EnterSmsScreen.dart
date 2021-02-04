@@ -29,7 +29,7 @@ class EnterSmsScreen extends StatelessWidget {
 
   String getFieldSms() {
     final RegExp regex = RegExp(r'[^\d]');
-    return inputFieldManager.value().replaceAll(regex, '');
+    return (inputFieldManager.value() ?? '').replaceAll(regex, '');
   }
 
   Future<void> verifySmsCode() async {
@@ -37,11 +37,16 @@ class EnterSmsScreen extends StatelessWidget {
     if (_scaffoldKey.currentContext == null) {
       return;
     }
-    auth.User user = await authLogic.signInWithPhoneNumber(getFieldSms());
-    if (user == null) {
-      inputFieldManager.addError('Sign in failed');
-    } else {
-      Navigator.pop(_scaffoldKey.currentContext, user);
+
+    try {
+      auth.User user = await authLogic.signInWithPhoneNumber(getFieldSms());
+      if (user == null) {
+        inputFieldManager.addError('Sign in failed');
+      } else {
+        Navigator.pop(_scaffoldKey.currentContext, user);
+      }
+    } catch (e) {
+      inputFieldManager.addError('$e');
     }
   }
 
