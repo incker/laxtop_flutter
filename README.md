@@ -42,3 +42,17 @@ flutter build apk --release
 Release file in `<app dir>/build/app/outputs/apk/release/app-release.apk`
 
 4. Upload release file to [play.google.com/console](https://play.google.com/console)
+
+
+## gradle
+
+1. Download [gradle installation file](https://gradle.org/releases/) named "complete"
+
+2. Unpack to any folder, add to env path, reboot 
+
+## gradlew
+
+```shell script
+cd C:\dev\prj\laxtop_flutter\laxtop\android
+gradlew.bat signingReport
+```
