@@ -23,6 +23,11 @@ Debug firebase login:
 253647
 ```
 
+## Keytool
+```
+C:\Program Files\Android\Android Studio\jre\bin\keytool.exe
+```
+
 ## Build release
 
 Full [build documentation](https://flutter.dev/docs/deployment/android)
