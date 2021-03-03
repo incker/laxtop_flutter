@@ -1,9 +1,5 @@
 import 'package:laxtop/model/InvoiceData.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'ApiRespInvoice.g.dart';
-
-@JsonSerializable()
 class ApiRespInvoice {
   final int creationId;
   final int spotId;
@@ -30,8 +26,22 @@ class ApiRespInvoice {
 
   InvoiceData toInvoiceData() => InvoiceData(creationId, productsToMap());
 
-  factory ApiRespInvoice.fromJson(Map<String, dynamic> json) =>
-      _$ApiRespInvoiceFromJson(json);
+  factory ApiRespInvoice.fromJson(Map<String, dynamic> json) => ApiRespInvoice(
+        json['creationId'] as int,
+        json['spotId'] as int,
+        json['supplierId'] as int,
+        json['status'] as int,
+        (json['products'] as List)
+            ?.map((e) =>
+                (e as List)?.map((e) => e as int)?.toList(growable: false))
+            ?.toList(growable: false),
+      );
 
-  Map<String, dynamic> toJson() => _$ApiRespInvoiceToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'creationId': creationId,
+        'spotId': spotId,
+        'supplierId': supplierId,
+        'status': status,
+        'products': products,
+      };
 }

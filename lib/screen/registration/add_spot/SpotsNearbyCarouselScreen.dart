@@ -93,13 +93,13 @@ class SpotInfoStory extends StatelessWidget {
               image: DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.8), BlendMode.dstATop),
-                  image: NetworkImage(spot.networkImageUrl()),
+                  image: NetworkImage(spot.imageId.original()),
                   fit: BoxFit.cover)),
         ),
         Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(spot.networkImageUrl()),
+                  image: NetworkImage(spot.imageId.original()),
                   fit: BoxFit.contain)),
         ),
       ],

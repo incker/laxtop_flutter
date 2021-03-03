@@ -162,7 +162,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   Future<bool> requireSpotImage() async {
-    if (spot?.hasImage() == true) {
+    if (spot != null && spot.imageId.hasImage() == true) {
       return true;
     }
 

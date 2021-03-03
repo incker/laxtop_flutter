@@ -1,9 +1,5 @@
 import 'package:laxtop/model/InvoiceDraft.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'ApiNewInvoice.g.dart';
-
-@JsonSerializable()
 class ApiNewInvoice {
   final int supplierId;
   final List<List<int>> products;
@@ -24,10 +20,18 @@ class ApiNewInvoice {
     return ApiNewInvoice(invoiceDraft.supplierHeader.id, products);
   }
 
-  factory ApiNewInvoice.fromJson(Map<String, dynamic> json) =>
-      _$ApiNewInvoiceFromJson(json);
+  factory ApiNewInvoice.fromJson(Map<String, dynamic> json) => ApiNewInvoice(
+        json['supplierId'] as int,
+        (json['products'] as List)
+            ?.map((e) =>
+                (e as List)?.map((e) => e as int)?.toList(growable: false))
+            ?.toList(growable: false),
+      );
 
-  Map<String, dynamic> toJson() => _$ApiNewInvoiceToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'supplierId': supplierId,
+        'products': products,
+      };
 }
 
 // https://www.youtube.com/watch?v=NkUtwePWhZo&list=PLhXZp00uXBk5TSY6YOdmpzp1yG3QbFvrN&index=8

@@ -10,6 +10,7 @@ import 'package:laxtop/storage/BasicData.dart';
 
 abstract class ApiCore {
   static final String domain = (() {
+    return 'https://laxtop.com/';
     if (kReleaseMode) {
       return 'https://laxtop.com/';
     } else {

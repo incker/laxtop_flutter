@@ -56,3 +56,5 @@ Release file in `<app dir>/build/app/outputs/apk/release/app-release.apk`
 cd C:\dev\prj\laxtop_flutter\laxtop\android
 gradlew.bat signingReport
 ```
+
+keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore

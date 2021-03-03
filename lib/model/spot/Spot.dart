@@ -1,4 +1,4 @@
-import 'package:laxtop/api/ApiCore.dart';
+import 'package:laxtop/model/ImageId.dart';
 import 'package:laxtop/model/spot/SpotAddress.dart';
 import 'package:laxtop/model/spot/SpotOrg.dart';
 import 'package:hive/hive.dart';
@@ -16,23 +16,19 @@ class Spot {
   @HiveField(2)
   final SpotOrg spotOrg;
   @HiveField(3)
-  final String imageUrl;
+  final ImageId imageId;
 
-  const Spot(this.id, this.address, this.spotOrg, this.imageUrl)
+  const Spot(this.id, this.address, this.spotOrg, this.imageId)
       : assert(id != null),
         assert(address != null),
         assert(spotOrg != null),
-        assert(imageUrl != null);
+        assert(imageId != null);
 
   bool hasOrganization() =>
       spotOrg.orgName.isNotEmpty && spotOrg.orgType.isNotEmpty;
 
   bool hasNotOrganization() =>
       spotOrg.orgName.isEmpty && spotOrg.orgType.isEmpty;
-
-  bool hasImage() => imageUrl.isNotEmpty;
-
-  bool hasNotImage() => imageUrl.isEmpty;
 
   static Spot get currentSpot => SpotBox().box().get(BasicData().spotId);
 
@@ -41,10 +37,7 @@ class Spot {
       json['id'] as int,
       SpotAddress.fromJson(json['address']),
       SpotOrg.fromJson(json['spotOrg']),
-      json['imageUrl'] as String,
+      ImageId(json['imageId'] as int),
     );
   }
-
-  String networkImageUrl() =>
-      imageUrl.isEmpty ? '' : ApiCore.domain + 'i/' + imageUrl;
 }

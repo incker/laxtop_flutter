@@ -1,32 +1,35 @@
+import 'package:laxtop/model/ImageId.dart';
 import 'package:laxtop/model/PromoStatus.dart';
 import 'package:laxtop/model/SupplierPromo.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:path/path.dart' as p;
 
-part 'ApiSupplierPromo.g.dart';
-
-@JsonSerializable()
 class ApiSupplierPromo {
   final int id;
   final int supplierId;
-  final String url;
+  final ImageId imageId;
 
   String filenameInCache() {
-    // ext is already with dot
-    return id.toString() + p.extension(url);
+    return '$id-$imageId.jpg';
   }
 
   SupplierPromo toSupplierPromo(PromoStatus status) {
-    return SupplierPromo(id, supplierId, url, status);
+    return SupplierPromo(id, supplierId, imageId, status);
   }
 
-  const ApiSupplierPromo(this.id, this.supplierId, this.url)
+  const ApiSupplierPromo(this.id, this.supplierId, this.imageId)
       : assert(id != null),
         assert(supplierId != null),
-        assert(url != null);
+        assert(imageId != null);
 
   factory ApiSupplierPromo.fromJson(Map<String, dynamic> json) =>
-      _$ApiSupplierPromoFromJson(json);
+      ApiSupplierPromo(
+        json['id'] as int,
+        json['supplierId'] as int,
+        ImageId(json['imageId'] as int),
+      );
 
-  Map<String, dynamic> toJson() => _$ApiSupplierPromoToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'supplierId': supplierId,
+        'imageId': imageId.id,
+      };
 }

@@ -1,7 +1,7 @@
 import 'package:laxtop/api/ApiCore.dart';
+import 'package:laxtop/model/ImageId.dart';
 import 'package:laxtop/model/PromoStatus.dart';
 import 'package:hive/hive.dart';
-import 'package:path/path.dart' as p;
 
 part 'SupplierPromo.g.dart';
 
@@ -12,9 +12,14 @@ class SupplierPromo {
   @HiveField(1)
   final int supplierId;
   @HiveField(2)
-  final String url;
+  final ImageId imageId;
   @HiveField(3)
   final PromoStatus status;
+
+  const SupplierPromo(this.id, this.supplierId, this.imageId, this.status)
+      : assert(id != null),
+        assert(supplierId != null),
+        assert(imageId != null);
 
   SupplierPromo copyWith({
     int id,
@@ -23,7 +28,7 @@ class SupplierPromo {
     PromoStatus status,
   }) {
     return SupplierPromo(id ?? this.id, supplierId ?? this.supplierId,
-        url ?? this.url, status ?? this.status);
+        url ?? this.imageId, status ?? this.status);
   }
 
   bool isFresh() => status == PromoStatus.fresh;
@@ -32,7 +37,7 @@ class SupplierPromo {
 
   bool isWatched() => status == PromoStatus.watched;
 
-  String get fullUrl => '${ApiCore.domain}i/$url';
+  String get fullUrl => '${ApiCore.domain}i/$imageId';
 
   static int countDownloadedPromos(Box<SupplierPromo> box) {
     int count = 0;
@@ -52,15 +57,5 @@ class SupplierPromo {
       }
     }
     return count;
-  }
-
-  const SupplierPromo(this.id, this.supplierId, this.url, this.status)
-      : assert(id != null),
-        assert(supplierId != null),
-        assert(url != null);
-
-  String filenameInCache() {
-    // ext is already with dot
-    return id.toString() + p.extension(url);
   }
 }

@@ -1,32 +1,23 @@
-import 'package:laxtop/api/ApiCore.dart';
+import 'package:laxtop/model/ImageId.dart';
 import 'package:laxtop/model/spot/SpotAddress.dart';
 
 class SpotNearby {
   final int id;
   final SpotAddress address;
-  final String imageUrl;
+  final ImageId imageId;
 
-  const SpotNearby(this.id, this.address, this.imageUrl)
+  const SpotNearby(this.id, this.address, this.imageId)
       : assert(id != null),
         assert(address != null),
-        assert(imageUrl != null);
+        assert(imageId != null);
 
-  factory SpotNearby.dummy() {
-    return SpotNearby(1, SpotAddress.dummy(),
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Budka9.jpg/250px-Budka9.jpg');
-  }
+  factory SpotNearby.dummy() => SpotNearby(1, SpotAddress.dummy(), ImageId(0));
 
   factory SpotNearby.fromJson(Map<String, dynamic> json) {
     return SpotNearby(
       json['id'] as int,
       SpotAddress.fromJson(json['address']),
-      json['imageUrl'] as String,
+      ImageId(json['imageId'] as int),
     );
-  }
-
-  String networkImageUrl() {
-    var res = '${ApiCore.domain}i/$imageUrl';
-    print(res);
-    return res;
   }
 }

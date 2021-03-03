@@ -9,10 +9,6 @@ class SpotInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('--------------------');
-    print('spot.imageUrl');
-    print(spot.imageUrl);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(spot.address.address),
@@ -26,9 +22,9 @@ class SpotInfoScreen extends StatelessWidget {
                     ? _ItemInfo(spot.address.spotType, spot.address.spotName)
                     : _ItemInfo('Тип Объекта', spot.address.spotType),
                 _ItemInfo(spot.spotOrg.orgType, spot.spotOrg.orgName),
-                if (spot.imageUrl.isNotEmpty)
+                if (spot.imageId.hasImage())
                   Image.network(
-                    spot.networkImageUrl(),
+                    spot.imageId.original(),
                   ),
               ],
             ),

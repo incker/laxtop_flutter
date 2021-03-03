@@ -73,7 +73,7 @@ class PromoCacheManager {
   }
 
   Future<String> getFilePath(SupplierPromo supplierPromo) async {
-    final String filename = supplierPromo.filenameInCache();
+    final String filename = supplierPromo.imageId.filenameInCache();
     String filePath = p.join(_promoDir.path, filename);
     return filePath;
   }
