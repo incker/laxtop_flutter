@@ -18,11 +18,7 @@ class Spot {
   @HiveField(3)
   final ImageId imageId;
 
-  const Spot(this.id, this.address, this.spotOrg, this.imageId)
-      : assert(id != null),
-        assert(address != null),
-        assert(spotOrg != null),
-        assert(imageId != null);
+  const Spot(this.id, this.address, this.spotOrg, this.imageId);
 
   bool hasOrganization() =>
       spotOrg.orgName.isNotEmpty && spotOrg.orgType.isNotEmpty;

@@ -7,24 +7,24 @@ import 'package:laxtop/model/spot/SpotAddress.dart';
 import 'package:laxtop/model/spot/SpotNearby.dart';
 
 class SelectedSpot {
-  final SpotNearby spot;
-  final SpotAddress newSpotAddress;
+  final SpotNearby? spot;
+  final SpotAddress? newSpotAddress;
 
-  SelectedSpot.selectSpot(this.spot)
-      : assert(spot != null),
+  SelectedSpot.selectSpot(SpotNearby spot)
+      : this.spot = spot,
         newSpotAddress = null;
 
-  SelectedSpot.newSpot(this.newSpotAddress)
-      : assert(newSpotAddress != null),
+  SelectedSpot.newSpot(SpotAddress newSpotAddress)
+      : this.newSpotAddress = newSpotAddress,
         spot = null;
 
   Future<ApiResp<Spot>> submitUserSpot(GeoLocation location) async {
     if (spot != null) {
-      return Api.addExistingSpot(spot.id, location);
+      return Api.addExistingSpot(spot!.id, location);
     }
 
     if (newSpotAddress != null) {
-      return Api.setNewSpot(NewSpot(newSpotAddress, location));
+      return Api.setNewSpot(NewSpot(newSpotAddress!, location));
     }
 
     throw 'Spot is not set';

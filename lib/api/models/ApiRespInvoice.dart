@@ -8,13 +8,7 @@ class ApiRespInvoice {
   final List<List<int>> products;
 
   ApiRespInvoice(
-      this.creationId, this.spotId, this.supplierId, this.status, this.products)
-      : assert(creationId != null),
-        assert(spotId != null),
-        assert(supplierId != null),
-        assert(status != null),
-        assert(products != null),
-        assert(products.length != 0);
+      this.creationId, this.spotId, this.supplierId, this.status, this.products);
 
   Map<int, int> productsToMap() {
     Map<int, int> map = {};
@@ -32,9 +26,9 @@ class ApiRespInvoice {
         json['supplierId'] as int,
         json['status'] as int,
         (json['products'] as List)
-            ?.map((e) =>
-                (e as List)?.map((e) => e as int)?.toList(growable: false))
-            ?.toList(growable: false),
+            .map((e) =>
+                (e as List).map((e) => e as int).toList(growable: false))
+            .toList(growable: false),
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{

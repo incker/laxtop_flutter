@@ -20,7 +20,7 @@ Future<void> showDownloadedPromos(BuildContext context) async {
 
 Future<void> showPromoCarousel(
     BuildContext context, List<SupplierPromo> promos, int index) async {
-  SystemChrome.setEnabledSystemUIOverlays(List(0));
+  SystemChrome.setEnabledSystemUIOverlays([]);
 
   final WatchedPromoSetter dataSetter = WatchedPromoSetter();
   dataSetter.collectAsWatched(promos[index]);

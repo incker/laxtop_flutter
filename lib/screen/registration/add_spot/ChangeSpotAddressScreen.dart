@@ -5,11 +5,11 @@ import 'package:laxtop/manager/InputSpotAddressManager.dart';
 import 'package:laxtop/model/spot/SpotAddress.dart';
 import 'package:laxtop/screen/user_info/SpotAddressScreen.dart';
 
-Future<SpotAddress> changeSpotAddress(
+Future<SpotAddress?> changeSpotAddress(
     BuildContext context, SpotAddress spotAddress) async {
   return InputSpotAddressManager(spotAddress)
-      .manage<SpotAddress>((InputSpotAddressManager inputManager) {
-    return Navigator.push<SpotAddress>(
+      .manage<SpotAddress?>((InputSpotAddressManager inputManager) {
+    return Navigator.push<SpotAddress?>(
         context,
         MaterialPageRoute(
             builder: (context) => _ChangeSpotAddressScreen(inputManager)));

@@ -13,11 +13,11 @@ class FutureApiResp<T> extends StatelessWidget {
   final Function(BuildContext) onWaiting;
 
   FutureApiResp(
-      {@required this.future,
-      @required this.onSuccess,
+      {required this.future,
+      required this.onSuccess,
       this.onError = defaultOnError,
       this.onWaiting = defaultOnWaiting,
-      Key key})
+      Key? key})
       : super(key: key);
 
   Widget build(BuildContext context) {
@@ -25,10 +25,10 @@ class FutureApiResp<T> extends StatelessWidget {
       future: future,
       builder: (BuildContext context, AsyncSnapshot<ApiResp<T>> snapshot) {
         if (snapshot.hasError) {
-          return onError(context, snapshot.error);
+          return onError(context, snapshot.error!);
         } else if (snapshot.hasData) {
           // have to be always success
-          final ApiResp<T> apiResp = snapshot.data;
+          final ApiResp<T> apiResp = snapshot.data!;
           return FutureBuilderWrapper<T>(
             future: apiResp.handle(context),
             onSuccess: onSuccess,

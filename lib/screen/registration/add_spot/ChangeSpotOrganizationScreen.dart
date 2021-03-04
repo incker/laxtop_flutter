@@ -4,10 +4,10 @@ import 'package:laxtop/libs/RxTextField.dart';
 import 'package:laxtop/manager/InputSpotOrgManager.dart';
 import 'package:laxtop/model/spot/SpotOrg.dart';
 
-Future<SpotOrg> changeSpotOrganization(BuildContext context, SpotOrg spotOrg) {
+Future<SpotOrg?> changeSpotOrganization(BuildContext context, SpotOrg spotOrg) {
   return InputSpotOrgManager(spotOrg)
-      .manage<SpotOrg>((InputSpotOrgManager inputManager) {
-    return Navigator.push<SpotOrg>(
+      .manage<SpotOrg?>((InputSpotOrgManager inputManager) {
+    return Navigator.push<SpotOrg?>(
       context,
       MaterialPageRoute(
           builder: (context) => _ChangeSpotOrganizationScreen(inputManager)),

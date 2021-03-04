@@ -23,7 +23,7 @@ abstract class Api {
   static int _spotId = 0;
 
   static void spotIdChangeCallback() {
-    _spotId = BasicData().spotId ?? 0;
+    _spotId = BasicData().spotId;
   }
 
   static Future<ApiResp<UserData>> getUserData() async {
@@ -179,7 +179,7 @@ T deserialize<T>(Map<String, dynamic> json) {
 class DataWrapper<T> {
   final T data;
 
-  DataWrapper(this.data) : assert(data != null);
+  DataWrapper(this.data);
 
   // wrapper is for primitives, so that have to be ok
   factory DataWrapper.fromJson(Map<String, dynamic> json) {

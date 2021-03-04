@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/libs/FutureBuilderWrapper.dart';
 import 'package:laxtop/model/SupplierPromo.dart';
@@ -29,9 +30,10 @@ class PromoGridScreen extends StatelessWidget {
         ],
       ),
       body: ValueListenableBuilder<Box<SupplierPromo>>(
-          valueListenable: SupplierPromoBox().listenable(),
+          valueListenable: SupplierPromoBox().listenable()
+              as ValueListenable<Box<SupplierPromo>>,
           builder:
-              (BuildContext context, Box<SupplierPromo> box, Widget _child) {
+              (BuildContext context, Box<SupplierPromo> box, Widget? _child) {
             final List<SupplierPromo> promos = getSavedPromos();
             return promos.isEmpty ? EmptyBody() : PromoGrid(promos);
           }),

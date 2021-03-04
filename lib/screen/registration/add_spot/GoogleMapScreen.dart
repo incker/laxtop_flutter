@@ -6,15 +6,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:laxtop/model/GeoLocation.dart';
 import 'package:laxtop/screen/registration/OfferAddLocationScreen.dart';
 
-Future<GeoLocation> getGoogleMapPosition(
+Future<GeoLocation?> getGoogleMapPosition(
     BuildContext context, GeoLocation initialGeoLocation) async {
   if (await acceptOfferAddLocation(context) == false) {
     return null;
   }
-  final LatLng selectedPosition =
+  final LatLng? selectedPosition =
       await GoogleMapManager(initialGeoLocation.toLatLng())
-          .manage<LatLng>((GoogleMapManager googleMapManager) async {
-    return Navigator.push(
+          .manage<LatLng?>((GoogleMapManager googleMapManager) async {
+    return Navigator.push<LatLng?>(
       context,
       MaterialPageRoute(
           builder: (context) => _GoogleMapScreen(googleMapManager)),

@@ -4,7 +4,7 @@ import 'package:laxtop/model/InvoiceHeader.dart';
 class InvoicePreviewBinary {
   final List<List<int>> data;
 
-  const InvoicePreviewBinary(this.data) : assert(data != null);
+  const InvoicePreviewBinary(this.data);
 
   Map<int, InvoiceHeader> invoiceHeaderMap() {
     Map<int, InvoiceHeader> map = {};

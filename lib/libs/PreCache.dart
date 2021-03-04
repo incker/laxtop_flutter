@@ -1,5 +1,5 @@
 class PreCache<T> {
-  T _data;
+  T? _data;
 
   T data(T Function() getData) {
     return _data ?? (_data = getData());
@@ -7,9 +7,5 @@ class PreCache<T> {
 
   T forceSet(T data) {
     return (_data = data);
-  }
-
-  void drop() {
-    _data = null;
   }
 }

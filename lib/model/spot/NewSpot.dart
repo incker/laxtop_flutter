@@ -5,9 +5,7 @@ class NewSpot {
   final SpotAddress address;
   final GeoLocation location;
 
-  NewSpot(this.address, this.location)
-      : assert(address != null),
-        assert(location != null);
+  NewSpot(this.address, this.location);
 
   Map<String, dynamic> toJson() => {
         'address': address.toJson(),

@@ -4,11 +4,11 @@ class CenterScreenWrapper extends StatelessWidget {
   final String title;
   final List<Widget> widgetList;
   final EdgeInsetsGeometry padding;
-  final Key scaffoldKey;
+  final Key? scaffoldKey;
 
   CenterScreenWrapper(this.title, this.widgetList,
       {this.padding = const EdgeInsets.only(bottom: 65.0),
-      Key key,
+      Key? key,
       this.scaffoldKey})
       : super(key: key);
 

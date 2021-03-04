@@ -8,7 +8,7 @@ import 'package:laxtop/model/GeoLocation.dart';
 import 'package:laxtop/model/spot/SelectedSpot.dart';
 import 'package:laxtop/model/spot/SpotAddress.dart';
 import 'package:laxtop/model/spot/SpotNearby.dart';
-import 'package:laxtop/screen/registration/add_spot/ChangeSpotAdressScreen.dart';
+import 'package:laxtop/screen/registration/add_spot/ChangeSpotAddressScreen.dart';
 import 'package:laxtop/screen/registration/add_spot/SpotsNearbyCarouselScreen.dart';
 import 'package:laxtop/screen/user_info/SpotAddressScreen.dart';
 
@@ -26,17 +26,16 @@ class SpotsNearbyGridScreen extends StatelessWidget {
   final Future<ApiResp<List<SpotNearby>>> waitingSpotsNearby;
 
   SpotsNearbyGridScreen(GeoLocation location)
-      : assert(location != null),
-        waitingSpotsNearby = Api.getSpotsNearby(location);
+      : waitingSpotsNearby = Api.getSpotsNearby(location);
 
   void onSpotTap(BuildContext context, List<SpotNearby> spotsNearby,
       SpotNearby spot) async {
     final int index = spotsNearby.indexOf(spot);
-    SelectedSpot selectedSpot =
+    SelectedSpot? selectedSpot =
         await showSpotCarousel(context, spotsNearby, index);
 
     if (selectedSpot != null && selectedSpot.spot != null) {
-      bool applied = await applySpotAddress(context, selectedSpot.spot.address);
+      bool applied = await applySpotAddress(context, selectedSpot.spot!.address);
       if (applied) {
         Navigator.pop(context, selectedSpot);
       }
@@ -93,7 +92,7 @@ class AddNewSpot extends StatelessWidget {
                 fit: BoxFit.contain)),
       ),
       onTap: () async {
-        SpotAddress newSpotAddress =
+        SpotAddress? newSpotAddress =
             await changeSpotAddress(context, SpotAddress('', '', ''));
 
         if (newSpotAddress != null) {

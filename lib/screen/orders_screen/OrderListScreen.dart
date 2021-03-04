@@ -22,11 +22,16 @@ class OrderListScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _actionButtonKey = GlobalKey<ScaffoldState>();
 
   void showSnackBar() {
-    Scaffold.of(_actionButtonKey.currentContext).showSnackBar(SnackBar(
-        backgroundColor: Colors.lightGreen, content: Text('Отправлено!')));
+    if (_actionButtonKey.currentContext != null) {
+      ScaffoldMessenger.of(_actionButtonKey.currentContext!).showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.lightGreen,
+            content: const Text('Отправлено!')),
+      );
+    }
   }
 
-  OrderListScreen({Key key}) : super(key: ObjectKey('OrderListScreen'));
+  OrderListScreen({Key? key}) : super(key: ObjectKey('OrderListScreen'));
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,7 @@ class OrderListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         key: _actionButtonKey,
         onPressed: () async {
-          final SupplierHeader supplierHeader = await selectSupplier(context);
+          final SupplierHeader? supplierHeader = await selectSupplier(context);
           if (supplierHeader == null) {
             return;
           }

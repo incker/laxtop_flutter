@@ -5,9 +5,8 @@ class ApiRequestError {
   final String jsonError;
   final String jsonBody;
 
-  ApiRequestError(this.apiError, this.statusCode, this.jsonError, this.jsonBody)
-      : assert(apiError != null),
-        assert(statusCode != null);
+  ApiRequestError(
+      this.apiError, this.statusCode, this.jsonError, this.jsonBody);
 }
 
 enum ApiError {

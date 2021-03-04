@@ -15,7 +15,7 @@ class SpotAddressScreen extends StatelessWidget {
   final SpotAddress spotAddress;
   final bool needApply;
 
-  SpotAddressScreen(this.spotAddress, {needApply: bool, Key key})
+  SpotAddressScreen(this.spotAddress, {needApply: bool, Key? key})
       : needApply = (needApply == true),
         super(key: key);
 
@@ -73,7 +73,7 @@ class _ItemInfo extends StatelessWidget {
   final String title;
   final String description;
 
-  _ItemInfo(this.title, this.description, {Key key}) : super(key: key);
+  _ItemInfo(this.title, this.description, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

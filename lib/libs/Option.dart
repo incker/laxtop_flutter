@@ -1,5 +1,5 @@
 class Option<T> {
-  T data;
+  T? data;
 
   Option({this.data});
 

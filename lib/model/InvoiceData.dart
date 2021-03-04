@@ -9,7 +9,5 @@ class InvoiceData {
   @HiveField(1)
   final Map<int, int> data;
 
-  const InvoiceData(this.creationId, this.data)
-      : assert(creationId != null),
-        assert(data != null);
+  const InvoiceData(this.creationId, this.data);
 }

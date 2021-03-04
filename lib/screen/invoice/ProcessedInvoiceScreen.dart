@@ -14,23 +14,19 @@ class ProcessedInvoiceScreen extends StatelessWidget {
   final InvoiceHeader invoiceHeader;
 
   Future<Map<Product, int>> _invoiceData(BuildContext context) async {
-    Future<InvoiceData> waitingInvoiceData =
+    Future<InvoiceData?> waitingInvoiceData =
         (await invoiceHeader.getInvoiceData()).handle(context);
 
     Map<int, Product> productMap = await () async {
-      SupplierCatalog supplierCatalog =
+      SupplierCatalog? supplierCatalog =
           await SupplierCatalog.getSupplierProducts(
               invoiceHeader.supplierId, context);
 
-      if (supplierCatalog == null) {
-        return <int, Product>{};
-      } else {
-        return supplierCatalog.getProductMap();
-      }
+      return supplierCatalog.getProductMap();
     }();
 
     // can be null
-    InvoiceData invoiceData = await waitingInvoiceData;
+    InvoiceData? invoiceData = await waitingInvoiceData;
 
     if (invoiceData == null) {
       return <Product, int>{};

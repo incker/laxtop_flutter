@@ -34,9 +34,9 @@ abstract class SystemInit {
           if (depLoaded) {
             final Iterator<Type> depIterator = after.iterator;
             depIterator.moveNext();
-            Future<void> future = processList[depIterator.current];
+            Future<void> future = processList[depIterator.current]!;
             while (depIterator.moveNext()) {
-              future = _futureWait([future, processList[depIterator.current]]);
+              future = _futureWait([future, processList[depIterator.current]!]);
             }
             processList[process.runtimeType] = _pushProcess(future, process);
           } else {

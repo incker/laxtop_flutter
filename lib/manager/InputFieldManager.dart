@@ -26,7 +26,7 @@ class InputFieldManager extends Manager {
   InputFieldManager._internal(this._fieldValue, this.stream$);
 
   String value() {
-    return _fieldValue.value;
+    return _fieldValue.value ?? '';
   }
 
   void addError(String error) {

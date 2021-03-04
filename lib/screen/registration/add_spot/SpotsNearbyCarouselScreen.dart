@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:laxtop/model/spot/SelectedSpot.dart';
 import 'package:laxtop/model/spot/SpotAddress.dart';
 import 'package:laxtop/model/spot/SpotNearby.dart';
-import 'package:laxtop/screen/registration/add_spot/ChangeSpotAdressScreen.dart';
+import 'package:laxtop/screen/registration/add_spot/ChangeSpotAddressScreen.dart';
 import 'package:laxtop/screen/registration/add_spot/SpotsNearbyGridScreen.dart';
 
-Future<SelectedSpot> showSpotCarousel(
+Future<SelectedSpot?> showSpotCarousel(
     BuildContext context, List<SpotNearby> spotsNearby, int index) async {
-  return Navigator.push(
+  return Navigator.push<SelectedSpot?>(
       context,
       MaterialPageRoute(
           builder: (context) => SpotsNearbyCarouselScreen(spotsNearby, index)));
@@ -60,7 +60,7 @@ class SpotsNearbyCarouselScreen extends StatelessWidget {
                   onPressed: () async {
                     // TODO
 
-                    SpotAddress spotAddress = await changeSpotAddress(
+                    SpotAddress? spotAddress = await changeSpotAddress(
                         context, SpotAddress('', '', ''));
 
                     if (spotAddress != null) {

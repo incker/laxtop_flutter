@@ -15,11 +15,11 @@ import 'package:hive/hive.dart';
 import 'package:laxtop/storage/promo/PromoCacheManager.dart';
 
 abstract class AppInitializer {
-  static Future<UserData> initUser(BuildContext Function() getContext) async {
+  static Future<UserData?> initUser(BuildContext Function() getContext) async {
     // basic request
     Future<ApiResp<UserData>> waitingUserData = Api.getUserData();
     await BoxInitializer.initMemoryBoxes();
-    UserData userData = await (await waitingUserData).handle(getContext());
+    UserData? userData = await (await waitingUserData).handle(getContext());
     if (userData != null) {
       saveUserData(getContext(), userData);
       // without await
@@ -63,12 +63,13 @@ abstract class AppInitializer {
 
   /// download all invoices
   static Future<void> getAllInvoicePreviewList(BuildContext context) async {
-    InvoicePreviewBinary invoicePreviewBinary =
+    InvoicePreviewBinary? invoicePreviewBinary =
         await (await Api.getLastInvoicePreviewList()).handle(context);
 
     Box invoiceHeaderBox = await InvoiceHeaderBox().initBox();
 
-    await invoiceHeaderBox.putAll(invoicePreviewBinary.invoiceHeaderMap());
+    // todo was not checked invoicePreviewBinary
+    await invoiceHeaderBox.putAll(invoicePreviewBinary!.invoiceHeaderMap());
     await invoiceHeaderBox.compact();
   }
 }

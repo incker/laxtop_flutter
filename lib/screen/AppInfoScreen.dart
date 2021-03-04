@@ -26,7 +26,7 @@ class _ItemInfo extends StatelessWidget {
   final String title;
   final String description;
 
-  _ItemInfo(this.title, this.description, {Key key}) : super(key: key);
+  _ItemInfo(this.title, this.description, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

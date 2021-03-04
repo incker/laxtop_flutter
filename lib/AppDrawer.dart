@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/api/Api.dart';
 import 'package:laxtop/model/spot/Spot.dart';
@@ -19,7 +20,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           ValueListenableBuilder<Box>(
               valueListenable: BasicDataBox().listenable(),
-              builder: (BuildContext context, Box box, Widget _child) {
+              builder: (BuildContext context, Box box, Widget? _child) {
                 BasicData basicData = BasicData();
 
                 return UserAccountsDrawerHeader(
@@ -37,9 +38,10 @@ class AppDrawer extends StatelessWidget {
               //backgroundColor: Theme.of(context).accentColor,
               backgroundColor: Colors.blue[100],
               label: ValueListenableBuilder<Box<SupplierPromo>>(
-                  valueListenable: SupplierPromoBox().listenable(),
+                  // TODO is that correct? check after hive update to null safety
+                  valueListenable: SupplierPromoBox().listenable() as ValueListenable<Box<SupplierPromo>>,
                   builder: (BuildContext context, Box<SupplierPromo> box,
-                      Widget _child) {
+                      Widget? _child) {
                     final int count = SupplierPromo.countNotFreshPromos(box);
                     return Text(
                       count.toString(),

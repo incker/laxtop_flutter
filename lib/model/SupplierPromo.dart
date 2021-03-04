@@ -16,19 +16,16 @@ class SupplierPromo {
   @HiveField(3)
   final PromoStatus status;
 
-  const SupplierPromo(this.id, this.supplierId, this.imageId, this.status)
-      : assert(id != null),
-        assert(supplierId != null),
-        assert(imageId != null);
+  const SupplierPromo(this.id, this.supplierId, this.imageId, this.status);
 
   SupplierPromo copyWith({
-    int id,
-    int supplierId,
-    String url,
-    PromoStatus status,
+    int? id,
+    int? supplierId,
+    ImageId? imageId,
+    PromoStatus? status,
   }) {
     return SupplierPromo(id ?? this.id, supplierId ?? this.supplierId,
-        url ?? this.imageId, status ?? this.status);
+        imageId ?? this.imageId, status ?? this.status);
   }
 
   bool isFresh() => status == PromoStatus.fresh;

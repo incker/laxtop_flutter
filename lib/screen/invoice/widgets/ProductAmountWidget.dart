@@ -16,7 +16,7 @@ class ProductAmountWidget extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border(
         bottom: BorderSide(
-          color: Colors.grey[300],
+          color: Colors.grey[300]!,
           width: 1.0,
         ),
       )),

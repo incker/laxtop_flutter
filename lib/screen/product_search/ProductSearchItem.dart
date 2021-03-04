@@ -7,8 +7,7 @@ class ProductSearchItem extends StatelessWidget {
   final Product product;
 
   ProductSearchItem(this.product)
-      : assert(product != null),
-        this.lowerName = product.name.toLowerCase(),
+      : this.lowerName = product.name.toLowerCase(),
         super(key: ObjectKey(product.id));
 
   @override

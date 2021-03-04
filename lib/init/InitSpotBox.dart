@@ -5,8 +5,6 @@ import 'package:laxtop/storage/BoxInitializer.dart';
 
 // box который тоже всегда нужен на первом же экране
 class InitSpotBox extends ProcessInit {
-  static BasicData instance;
-
   List<Type> after() => [InitHive];
 
   Future<void> init() async {

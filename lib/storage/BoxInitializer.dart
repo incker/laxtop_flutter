@@ -80,7 +80,7 @@ abstract class BoxInitializer<T> {
     return Hive.box<T>(boxName());
   }
 
-  ValueListenable<Box> listenable({List<int> keys}) {
+  ValueListenable<Box> listenable({List<int> keys = const []}) {
     // for convenience: importing hive_flutter is not automatic by IDE
     // for not making mistakes: keys are always int
     return box().listenable(keys: keys);

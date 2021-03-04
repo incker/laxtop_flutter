@@ -5,9 +5,7 @@ class GeoLocation {
   final double lng;
   final double lat;
 
-  const GeoLocation(this.lng, this.lat)
-      : assert(lat != null),
-        assert(lng != null);
+  const GeoLocation(this.lng, this.lat);
 
   // костыль, но пока норм
   factory GeoLocation.kiev() {

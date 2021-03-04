@@ -14,9 +14,7 @@ class InvoiceDraft {
   SupplierHeader get supplierHeader =>
       SupplierHeaderBox().box().get(supplierId);
 
-  const InvoiceDraft(this.supplierId, this.data)
-      : assert(supplierId != null),
-        assert(data != null);
+  const InvoiceDraft(this.supplierId, this.data);
 
   static Future<InvoiceDraft> getDraft(
       Box<InvoiceDraft> invoiceDraftBox, int supplierId) async {
@@ -60,10 +58,8 @@ class InvoiceResult {
   final InvoiceDraft draftToSave;
 
   const InvoiceResult.sent(this.draftToSave)
-      : wasSent = true,
-        assert(draftToSave != null);
+      : wasSent = true;
 
   const InvoiceResult.draft(this.draftToSave)
-      : wasSent = false,
-        assert(draftToSave != null);
+      : wasSent = false;
 }

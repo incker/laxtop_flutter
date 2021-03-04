@@ -5,9 +5,9 @@ enum DataKey { version, phone, token, name, isNewUser, spotId }
 class BasicData {
   final Box box;
 
-  static BasicData _instance;
+  static BasicData? _instance;
 
-  factory BasicData() => _instance;
+  factory BasicData() => _instance!;
 
   BasicData.setBox(this.box) {
     BasicData._instance = this;
@@ -27,12 +27,12 @@ class BasicData {
   int get spotId => box.get(DataKey.spotId.index) ?? 0;
 
   Future<void> put(
-      {String version,
-      String token,
-      String phone,
-      String name,
-      bool isNewUser,
-      int spotId}) async {
+      {String? version,
+      String? token,
+      String? phone,
+      String? name,
+      bool? isNewUser,
+      int? spotId}) async {
     print({
       'version': version,
       'phone': phone,

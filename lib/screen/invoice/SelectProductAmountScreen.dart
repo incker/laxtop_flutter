@@ -5,15 +5,15 @@ import 'package:laxtop/manager/InputFieldManager.dart';
 import 'package:laxtop/manager/Validation.dart';
 import 'package:laxtop/model/Product.dart';
 
-Future<int> changeProductAmount(
+Future<int?> changeProductAmount(
     BuildContext context, Product product, int amount) async {
-  if (amount == null || amount == 0) {
+  if (amount == 0) {
     amount = 1;
   }
   return InputFieldManager(amount.toString(),
           validation: Validation.validateAmount)
-      .manage<int>((InputFieldManager inputAmountManager) {
-    return Navigator.push(
+      .manage<int?>((InputFieldManager inputAmountManager) {
+    return Navigator.push<int?>(
       context,
       MaterialPageRoute(
           builder: (context) => SelectProductAmountScreen(
@@ -31,7 +31,7 @@ class SelectProductAmountScreen extends StatelessWidget {
 
   factory SelectProductAmountScreen(
       Product product, InputFieldManager inputAmountManager,
-      {Key key}) {
+      {Key? key}) {
     final TextEditingController textFieldController = TextEditingController();
     textFieldController.text = inputAmountManager.value();
 
@@ -45,14 +45,14 @@ class SelectProductAmountScreen extends StatelessWidget {
 
   SelectProductAmountScreen._internal(
       this._textFieldController, this.product, this.inputAmountManager,
-      {Key key})
+      {Key? key})
       : super(key: key);
 
   void apply(BuildContext context) {
     String value = _textFieldController.text
         .replaceAllMapped(RegExp(r'[^\d]'), (Match m) => '');
 
-    int amount = int.tryParse(value);
+    int? amount = int.tryParse(value);
     if (amount != null) {
       Navigator.pop(context, amount);
     }

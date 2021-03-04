@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/api/Api.dart';
 import 'package:laxtop/api/models/ApiResp.dart';
@@ -19,11 +20,11 @@ Future<SpotSupplierSequence> getSpotSupplierSequence(BuildContext context,
         // nearly unreachable
         await showErrorDialog(context, 'Spot Sequence',
             errorTitle: 'Ошибка чтения списка поставщиков');
-        return SpotSupplierSequence(BasicData().spotId, List(0));
+        return SpotSupplierSequence(BasicData().spotId, []);
       }();
 }
 
-Future<SupplierHeader> selectSupplier(BuildContext context) async {
+Future<SupplierHeader?> selectSupplier(BuildContext context) async {
   final Box<SpotSupplierSequence> spotSupplierSequenceBox =
       SpotSupplierSequenceBox().box();
 
@@ -35,13 +36,13 @@ Future<SupplierHeader> selectSupplier(BuildContext context) async {
     MaterialPageRoute(builder: (context) => _SelectSupplierScreen()),
   );
 
-  SpotSupplierSequence newUserSpot =
+  SpotSupplierSequence? newUserSpot =
       spotSupplierSequenceBox.get(oldUserSpot.id);
 
   if (newUserSpot != null && oldUserSpot.isNotEqual(newUserSpot)) {
     ApiResp<SpotSupplierSequence> apiResp =
         await Api.setSupplierSequence(newUserSpot);
-    SpotSupplierSequence spotSupplierSequence = await apiResp.handle(context);
+    SpotSupplierSequence? spotSupplierSequence = await apiResp.handle(context);
     if (spotSupplierSequence != null) {
       await spotSupplierSequenceBox.put(oldUserSpot.id, spotSupplierSequence);
     }
@@ -52,7 +53,7 @@ Future<SupplierHeader> selectSupplier(BuildContext context) async {
 }
 
 class _SelectSupplierScreen extends StatelessWidget {
-  _SelectSupplierScreen({Key key}) : super(key: key);
+  _SelectSupplierScreen({Key? key}) : super(key: key);
 
   final spotId = BasicData().spotId;
   final Box<SpotSupplierSequence> spotSupplierSequenceBox =
@@ -81,11 +82,11 @@ class _SelectSupplierScreen extends StatelessWidget {
           title: Text('Выберите поставщика'),
         ),
         body: ValueListenableBuilder<Box<SpotSupplierSequence>>(
-            valueListenable: SpotSupplierSequenceBox().listenable(),
+            valueListenable: SpotSupplierSequenceBox().listenable() as ValueListenable<Box<SpotSupplierSequence>>,
             builder: (BuildContext context, Box<SpotSupplierSequence> box,
-                Widget _child) {
+                Widget? _child) {
               final List<int> supplierIdSequence =
-                  box.get(spotId)?.sequence ?? List(0);
+                  box.get(spotId)?.sequence ?? [];
 
               if (supplierIdSequence.isEmpty) {
                 return EmptyBody();
@@ -136,7 +137,7 @@ class SupplierWidget extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border(
           bottom: BorderSide(
-            color: Colors.grey[300],
+            color: Colors.grey[300]!,
             width: 1.0,
           ),
         )),

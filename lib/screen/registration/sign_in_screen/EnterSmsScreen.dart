@@ -6,10 +6,10 @@ import 'package:laxtop/manager/InputFieldManager.dart';
 import 'package:laxtop/libs/CenterScreenWrapper.dart';
 import 'package:laxtop/screen/registration/sign_in_screen/AuthLogic.dart';
 
-Future<auth.User> authBySms(
+Future<auth.User?> authBySms(
     BuildContext context, AuthLogic authLogic, String phoneNumber) async {
   return InputFieldManager('')
-      .manage<auth.User>((InputFieldManager inputFieldManager) {
+      .manage<auth.User?>((InputFieldManager inputFieldManager) {
     return Navigator.push<auth.User>(
       context,
       MaterialPageRoute(
@@ -40,11 +40,7 @@ class EnterSmsScreen extends StatelessWidget {
 
     try {
       auth.User user = await authLogic.signInWithPhoneNumber(getFieldSms());
-      if (user == null) {
-        inputFieldManager.addError('Sign in failed');
-      } else {
-        Navigator.pop(_scaffoldKey.currentContext, user);
-      }
+      Navigator.pop(_scaffoldKey.currentContext!, user);
     } catch (e) {
       inputFieldManager.addError('$e');
     }

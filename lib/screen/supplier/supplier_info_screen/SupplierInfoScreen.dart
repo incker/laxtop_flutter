@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/api/models/ApiResp.dart';
 import 'package:laxtop/libs/FutureBuilderWrapper.dart';
@@ -23,7 +24,8 @@ class SupplierInfoScreen extends StatelessWidget {
   Future<SupplierInfo> getSupplierInfo() async {
     ApiResp<SupplierInfo> apiResp =
         await SupplierInfo.getById(supplierHeader.id);
-    return apiResp.handle(_scaffoldKey.currentContext);
+    return await apiResp.handle(_scaffoldKey.currentContext) ??
+        SupplierInfo.empty();
   }
 
   @override
@@ -42,25 +44,22 @@ class SupplierInfoScreen extends StatelessWidget {
                 return Container(
                     padding:
                         const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
-                    child: supplierInfo == null
-                        ? Text('Пусто(')
-                        : Column(
-                            children: [
-                              _SupplierTitleWidget(
-                                  supplierHeader.name, supplierInfo.about),
-                              ListTile(
-                                leading: Icon(
-                                  Icons.location_on,
-                                  color: Colors.blueGrey,
-                                ),
-                                title: Text(supplierInfo.address),
-                                onTap: () {},
-                              ),
-                              for (SupplierPhone supplierPhone
-                                  in supplierInfo.phones)
-                                _SupplierPhoneWidget(supplierPhone),
-                            ],
-                          ));
+                    child: Column(
+                      children: [
+                        _SupplierTitleWidget(
+                            supplierHeader.name, supplierInfo.about),
+                        ListTile(
+                          leading: Icon(
+                            Icons.location_on,
+                            color: Colors.blueGrey,
+                          ),
+                          title: Text(supplierInfo.address),
+                          onTap: () {},
+                        ),
+                        for (SupplierPhone supplierPhone in supplierInfo.phones)
+                          _SupplierPhoneWidget(supplierPhone),
+                      ],
+                    ));
               },
               onWaiting: (BuildContext context) {
                 return Column(children: <Widget>[
@@ -72,9 +71,9 @@ class SupplierInfoScreen extends StatelessWidget {
                 ]);
               }),
           ValueListenableBuilder<Box<SupplierPromo>>(
-              valueListenable: SupplierPromoBox().listenable(),
+              valueListenable: SupplierPromoBox().listenable() as ValueListenable<Box<SupplierPromo>>,
               builder: (BuildContext context, Box<SupplierPromo> box,
-                  Widget _child) {
+                  Widget? _child) {
                 final List<SupplierPromo> promos = box.values
                     .where((SupplierPromo promo) =>
                         promo.supplierId == supplierHeader.id &&

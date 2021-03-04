@@ -11,7 +11,7 @@ Future<bool> acceptOfferAddLocation(BuildContext context) => Navigator.push(
 class _OfferAddLocationScreen extends StatelessWidget {
   final BasicData basicData = BasicData();
 
-  _OfferAddLocationScreen({Key key}) : super(key: key);
+  _OfferAddLocationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

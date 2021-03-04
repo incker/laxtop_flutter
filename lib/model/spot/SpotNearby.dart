@@ -6,10 +6,7 @@ class SpotNearby {
   final SpotAddress address;
   final ImageId imageId;
 
-  const SpotNearby(this.id, this.address, this.imageId)
-      : assert(id != null),
-        assert(address != null),
-        assert(imageId != null);
+  const SpotNearby(this.id, this.address, this.imageId);
 
   factory SpotNearby.dummy() => SpotNearby(1, SpotAddress.dummy(), ImageId(0));
 

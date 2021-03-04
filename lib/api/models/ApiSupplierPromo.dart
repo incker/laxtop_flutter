@@ -15,10 +15,7 @@ class ApiSupplierPromo {
     return SupplierPromo(id, supplierId, imageId, status);
   }
 
-  const ApiSupplierPromo(this.id, this.supplierId, this.imageId)
-      : assert(id != null),
-        assert(supplierId != null),
-        assert(imageId != null);
+  const ApiSupplierPromo(this.id, this.supplierId, this.imageId);
 
   factory ApiSupplierPromo.fromJson(Map<String, dynamic> json) =>
       ApiSupplierPromo(

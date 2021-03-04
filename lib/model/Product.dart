@@ -14,11 +14,7 @@ class Product {
   @HiveField(3)
   final bool deleted;
 
-  const Product(this.id, this.name, this.unit, this.deleted)
-      : assert(id != null),
-        assert(name != null),
-        assert(unit != null),
-        assert(deleted != null);
+  const Product(this.id, this.name, this.unit, this.deleted);
 
   static const List<Unit> units = Unit.values;
 
@@ -30,7 +26,7 @@ class Product {
   }
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(json['id'], json['name'], units[json['unit']] ?? 0, false);
+    return Product(json['id'], json['name'], units[json['unit']!], false);
   }
 
   Map<String, dynamic> toJson() => {

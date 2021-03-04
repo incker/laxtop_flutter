@@ -7,7 +7,7 @@ import 'package:laxtop/manager/Validation.dart';
 Future<String> inputUserName(BuildContext context) async {
   return InputFieldManager('', validation: Validation.notEmpty)
       .manage((InputFieldManager inputAmountManager) async {
-    String name = await Navigator.push(
+    String? name = await Navigator.push<String?>(
       context,
       MaterialPageRoute(
           builder: (context) => _UserNameScreen(
@@ -21,7 +21,7 @@ Future<String> inputUserName(BuildContext context) async {
 class _UserNameScreen extends StatelessWidget {
   final InputFieldManager inputNameManager;
 
-  _UserNameScreen(this.inputNameManager, {Key key}) : super(key: key);
+  _UserNameScreen(this.inputNameManager, {Key? key}) : super(key: key);
 
   void apply(BuildContext context) {
     String value = inputNameManager

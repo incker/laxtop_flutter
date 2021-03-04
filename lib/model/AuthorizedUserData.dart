@@ -9,19 +9,14 @@ class AuthorizedUserData {
   final List<Spot> spots;
 
   const AuthorizedUserData(
-      this.phone, this.token, this.licenseAccepted, this.name, this.spots)
-      : assert(phone != null),
-        assert(token != null),
-        assert(licenseAccepted != null),
-        assert(name != null),
-        assert(spots != null);
+      this.phone, this.token, this.licenseAccepted, this.name, this.spots);
 
   Future<void> saveToApplication(BasicData basicData) async {
     await basicData.put(
       token: token,
       phone: phone,
       name: name,
-      spotId: spots.isEmpty ? 0 : spots[0].id ?? 0,
+      spotId: spots.isEmpty ? 0 : spots[0].id,
     );
   }
 

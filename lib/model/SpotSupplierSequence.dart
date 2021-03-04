@@ -21,7 +21,7 @@ class SpotSupplierSequence {
         assert(sequence != null);
 
   factory SpotSupplierSequence.fromJson(Map<String, dynamic> json) {
-    List<int> sequence = (json['sequence'] as List)?.cast<int>();
+    List<int> sequence = (json['sequence'] as List).cast<int>();
     return SpotSupplierSequence(json['id'], sequence);
   }
 

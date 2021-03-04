@@ -15,10 +15,12 @@ class SupplierInfo {
   @HiveField(2)
   final List<SupplierPhone> phones;
 
-  const SupplierInfo(this.about, this.address, this.phones)
-      : assert(about != null),
-        assert(address != null),
-        assert(phones != null);
+  const SupplierInfo(this.about, this.address, this.phones);
+
+  const SupplierInfo.empty()
+      : this.about = 'unknown',
+        this.address = 'unknown',
+        this.phones = const [];
 
   static Future<ApiResp<SupplierInfo>> getById(int supplierId) async {
     LazyBox<SupplierInfo> supplierInfoBox = await SupplierInfoBox().initBox();
@@ -36,11 +38,11 @@ class SupplierInfo {
   }
 
   factory SupplierInfo.fromJson(Map<String, dynamic> json) {
-    final String about = json['about'] as String ?? '';
-    final String address = json['address'] as String ?? '';
+    final String about = json['about'] as String;
+    final String address = json['address'] as String;
     final List<SupplierPhone> phones = (json['phones'] as List)
-        ?.map((p) => SupplierPhone.fromJson(p))
-        ?.toList(growable: false);
+        .map((p) => SupplierPhone.fromJson(p))
+        .toList(growable: false);
 
     return SupplierInfo(about, address, phones);
   }

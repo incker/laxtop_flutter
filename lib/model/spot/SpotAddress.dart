@@ -11,10 +11,7 @@ class SpotAddress {
   @HiveField(2)
   final String spotName;
 
-  const SpotAddress(this.address, this.spotType, this.spotName)
-      : assert(address != null),
-        assert(spotType != null),
-        assert(spotName != null);
+  const SpotAddress(this.address, this.spotType, this.spotName);
 
   factory SpotAddress.dummy() {
     return SpotAddress('Автомагистральная 32А', 'Киоск', '"Чебурум"');

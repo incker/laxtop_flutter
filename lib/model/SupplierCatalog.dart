@@ -13,9 +13,7 @@ class SupplierCatalog {
   @HiveField(1)
   final List<Product> products;
 
-  const SupplierCatalog(this.supplierId, this.products)
-      : assert(supplierId != null),
-        assert(products != null);
+  const SupplierCatalog(this.supplierId, this.products);
 
   Map<int, Product> getProductMap() {
     Map<int, Product> data = {};
@@ -29,19 +27,19 @@ class SupplierCatalog {
       int supplierId, BuildContext context) async {
     LazyBox<SupplierCatalog> supplierCatalogBox =
         await SupplierCatalogBox().initBox();
-    SupplierCatalog supplierCatalog = await supplierCatalogBox.get(supplierId);
+    SupplierCatalog? supplierCatalog = await supplierCatalogBox.get(supplierId);
 
     if (supplierCatalog == null) {
-      SupplierCatalog apiSupplierCatalog =
+      SupplierCatalog? apiSupplierCatalog =
           await (await Api.getSupplierCatalog(supplierId)).handle(context);
       if (apiSupplierCatalog != null) {
         await supplierCatalogBox.put(
             apiSupplierCatalog.supplierId, apiSupplierCatalog);
       }
-      return apiSupplierCatalog;
+      return apiSupplierCatalog!;
     }
 
-    return supplierCatalog;
+    return SupplierCatalog(supplierId, []);
   }
 
   // need to hold deleted by supplier products

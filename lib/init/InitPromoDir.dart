@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:laxtop/init/SystemInit.dart';
 
 class InitPromoDir extends ProcessInit {
-  List<Type> after() => List(0);
+  List<Type> after() => [];
 
   Future<void> init() async {
     Directory promoDir = Directory(p.join(

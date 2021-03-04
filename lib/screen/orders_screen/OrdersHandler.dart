@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/storage/BoxInitializer.dart';
 import 'package:laxtop/model/InvoiceHeader.dart';
@@ -39,8 +40,8 @@ class OrdersHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box<InvoiceHeader>>(
-        valueListenable: InvoiceHeaderBox().listenable(),
-        builder: (BuildContext context, Box<InvoiceHeader> box, Widget _child) {
+        valueListenable: InvoiceHeaderBox().listenable() as ValueListenable<Box<InvoiceHeader>>,
+        builder: (BuildContext context, Box<InvoiceHeader> box, Widget? _child) {
           final int boxLength = box.length;
 
           return ListView.builder(

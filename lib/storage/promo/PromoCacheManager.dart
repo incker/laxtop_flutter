@@ -9,7 +9,7 @@ import 'package:path/path.dart' as p;
 // final directory = await getApplicationDocumentsDirectory();
 
 class PromoCacheManager {
-  static Directory _promoDir;
+  static Directory? _promoDir;
 
   static void setPromoDir(Directory promoDir) {
     _promoDir = promoDir;
@@ -23,7 +23,7 @@ class PromoCacheManager {
     Set<String> filesActual = {};
 
     Stream<FileSystemEntity> stream =
-        _promoDir.list(recursive: false, followLinks: false);
+        _promoDir!.list(recursive: false, followLinks: false);
     await for (FileSystemEntity entity in stream) {
       String fileNameWithoutExt = parseFileNameWithoutExt(entity.path);
       if (!promoFileNames.contains(fileNameWithoutExt)) {
@@ -35,7 +35,7 @@ class PromoCacheManager {
     }
 
     if (filesActual.length == promoFileNames.length) {
-      return PromoCacheDiff(List(0), filesToDelete);
+      return PromoCacheDiff([], filesToDelete);
     }
 
     List<int> promosToDownload = [];
@@ -54,7 +54,7 @@ class PromoCacheManager {
     List<String> files = [];
 
     Stream<FileSystemEntity> stream =
-        _promoDir.list(recursive: false, followLinks: false);
+        _promoDir!.list(recursive: false, followLinks: false);
     await for (FileSystemEntity entity in stream) {
       files.add(entity.path);
     }
@@ -69,12 +69,12 @@ class PromoCacheManager {
 
   Future<void> cacheIfNeeded(SupplierPromo supplierPromo) async {
     String filePath = await getFilePath(supplierPromo);
-    return downloadFile(supplierPromo.fullUrl, filePath);
+    await downloadFile(supplierPromo.fullUrl, filePath);
   }
 
   Future<String> getFilePath(SupplierPromo supplierPromo) async {
     final String filename = supplierPromo.imageId.filenameInCache();
-    String filePath = p.join(_promoDir.path, filename);
+    String filePath = p.join(_promoDir!.path, filename);
     return filePath;
   }
 
@@ -91,9 +91,7 @@ class PromoCacheDiff {
   final List<int> promosToDownload;
   final List<FileSystemEntity> filesToDelete;
 
-  PromoCacheDiff(this.promosToDownload, this.filesToDelete)
-      : assert(filesToDelete != null),
-        assert(promosToDownload != null);
+  PromoCacheDiff(this.promosToDownload, this.filesToDelete);
 
   deleteExpired() {
     for (var file in filesToDelete) {

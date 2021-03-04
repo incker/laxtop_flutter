@@ -21,13 +21,12 @@ import 'package:hive/hive.dart';
 
 Future<InvoiceResult> modifyDraftScreen(
     BuildContext context, InvoiceDraft invoiceDraft) async {
-  Map<int, Product> productMap;
+  Map<int, Product> productMap = {};
 
   // extra scope to drop catalog
   final SearcherManager searcherManager = await () async {
     SupplierCatalog catalog = await SupplierCatalog.getSupplierProducts(
-            invoiceDraft.supplierHeader.id, context) ??
-        SupplierCatalog(invoiceDraft.supplierHeader.id, List(0));
+        invoiceDraft.supplierHeader.id, context);
     productMap = catalog.getProductMap();
     return SearcherManager(catalog.products
         .where((Product product) => !product.deleted)
@@ -37,7 +36,7 @@ Future<InvoiceResult> modifyDraftScreen(
   return searcherManager.manage((SearcherManager searcherManager) {
     return InvoiceDataManager({...invoiceDraft.data})
         .manage<InvoiceResult>((InvoiceDataManager invoiceDataManager) async {
-      InvoiceResult invoiceResult = await Navigator.push(
+      InvoiceResult? invoiceResult = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => CreateInvoiceScreen(
@@ -68,17 +67,14 @@ class CreateInvoiceScreen extends StatelessWidget {
       BuildContext context, Map<int, int> pikedProductList) async {
     final List<List<int>> products =
         pikedProductList.entries.map((MapEntry<int, int> mapEntry) {
-      List<int> list = List(2);
-      list[0] = mapEntry.key;
-      list[1] = mapEntry.value;
-      return list;
+      return [mapEntry.key, mapEntry.value];
     }).toList(growable: false);
 
     ApiNewInvoice apiNewInvoice = ApiNewInvoice(supplierHeader.id, products);
 
     print('----- setNewInvoice start -----');
 
-    ApiRespInvoice apiRespInvoice =
+    ApiRespInvoice? apiRespInvoice =
         await (await Api.setNewInvoice(apiNewInvoice))
             .handle(_scaffoldKey.currentContext);
 
@@ -153,7 +149,7 @@ class CreateInvoiceScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final Product product = await showSearch(
+            final Product? product = await showSearch(
                 context: context,
                 delegate: SearchProductDelegate(searcherManager..search('')));
 
@@ -162,7 +158,7 @@ class CreateInvoiceScreen extends StatelessWidget {
 
             if (product != null) {
               final int oldAmount = invoiceDataManager.getAmount(product) ?? 1;
-              final int newAmount =
+              final int? newAmount =
                   await changeProductAmount(context, product, oldAmount);
               if (newAmount != null) {
                 invoiceDataManager.setAmount(product, newAmount);
@@ -196,7 +192,7 @@ class ProductAmountWidgetClickable extends StatelessWidget {
     return InkWell(
       child: ProductAmountWidget(product, amount),
       onTap: () async {
-        final int newAmount =
+        final int? newAmount =
             await changeProductAmount(context, product, amount);
         if (newAmount != null) {
           _changeProductAmount(product, newAmount);

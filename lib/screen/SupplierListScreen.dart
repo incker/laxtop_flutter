@@ -57,7 +57,7 @@ List<List<SupplierHeader>> getSupplierSequence() {
       SpotSupplierSequenceBox().box().values.toList(growable: false);
 
   if (spotSupplierSequences.isEmpty) {
-    return List<List<SupplierHeader>>.filled(2, List(0), growable: false);
+    return List<List<SupplierHeader>>.filled(2, List.empty(growable: false), growable: false);
   }
 
   if (spotSupplierSequences.length == 1) {
@@ -76,7 +76,7 @@ List<List<SupplierHeader>> idsToSupplierHeaders(List<int> supplierSequence) {
 
   for (int supplierId in supplierHeaderMap.keys) {
     if (!activeSupplierIds.contains(supplierId)) {
-      otherSupplierList.add(supplierHeaderMap[supplierId]);
+      otherSupplierList.add(supplierHeaderMap[supplierId]!);
     }
   }
 
@@ -100,7 +100,7 @@ List<List<SupplierHeader>> getSuppliersAverageSequence(
     for (int i = 0, l = list.length; i < l; i++) {
       int supplierId = list[i];
       if (activeSuppliers.containsKey(supplierId)) {
-        activeSuppliers[supplierId].add(i);
+        activeSuppliers[supplierId]!.add(i);
       } else {
         activeSuppliers[supplierId] = [i];
       }

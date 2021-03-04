@@ -11,11 +11,11 @@ class Observer<T> extends StatelessWidget {
   final Function(BuildContext) onWaiting;
 
   Observer(
-      {@required this.stream,
-      @required this.onSuccess,
+      {required this.stream,
+      required this.onSuccess,
       this.onError = defaultOnError,
       this.onWaiting = defaultOnWaiting,
-      Key key})
+      Key? key})
       : super(key: key);
 
   @override
@@ -24,9 +24,9 @@ class Observer<T> extends StatelessWidget {
       stream: stream,
       builder: (context, AsyncSnapshot<T> snapshot) {
         if (snapshot.hasError) {
-          return onError(context, snapshot.error);
+          return onError(context, snapshot.error!);
         } else if (snapshot.hasData) {
-          T data = snapshot.data;
+          T data = snapshot.data!;
           return onSuccess(context, data);
         }
         return onWaiting(context);

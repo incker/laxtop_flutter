@@ -14,14 +14,12 @@ class InvoicePreviewList {
 
   InvoicePreviewBinary toInvoicePreviewBinary() {
     return InvoicePreviewBinary(data.map((InvoiceHeader invoicePreview) {
-      List<int> list = List(3);
-
-      list[0] = invoicePreview.creationId;
-      list[1] = invoicePreview.supplierId;
-      list[2] = invoicePreview.positionCount;
-
-      return list;
-    }));
+      return <int>[
+        invoicePreview.creationId,
+        invoicePreview.supplierId,
+        invoicePreview.positionCount
+      ];
+    }).toList());
   }
 
   void sortById() {

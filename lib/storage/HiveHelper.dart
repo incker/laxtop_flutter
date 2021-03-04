@@ -6,7 +6,7 @@ abstract class HiveHelper {
   /// change BasicDataBox
   /// clean SpotBox
   /// delete other boxes
-  static Future<void> clean({String newToken, String newVersion}) async {
+  static Future<void> clean({String? newToken, String? newVersion}) async {
     await cleanSecondaryBoxes();
     await BasicData().put(
       version: newVersion,

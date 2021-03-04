@@ -32,11 +32,11 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       IpApiLocation.detectLocation();
 
   bool agreementAccepted = false;
-  GeoLocation location;
-  Spot spot;
+  GeoLocation? location;
+  Spot? spot;
 
-  Future<T> onContext<T>(Future<T> Function(BuildContext) func) async {
-    BuildContext context = _scaffoldKey.currentContext;
+  Future<T?> onContext<T>(Future<T> Function(BuildContext) func) async {
+    BuildContext? context = _scaffoldKey.currentContext;
     if (context != null) {
       return func(context);
     }
@@ -44,14 +44,14 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   changeProgress({
-    GeoLocation location,
-    bool agreementAccepted,
+    GeoLocation? location,
+    bool? agreementAccepted,
   }) {
     setState(() {
       spot = spotBox.get(basicData.spotId);
       this.location = location ?? this.location;
       this.agreementAccepted =
-          agreementAccepted ?? this.agreementAccepted ?? false;
+          agreementAccepted ?? this.agreementAccepted;
     });
   }
 
@@ -59,7 +59,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     if (basicData.hasToken) {
       return true;
     }
-    ApiResp<AuthorizedUserData> apiResp =
+    ApiResp<AuthorizedUserData>? apiResp =
         await onContext((BuildContext context) => userSignIn(context));
     if (apiResp == null) {
       return false;
@@ -149,7 +149,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    SpotOrg spotOrg = await onContext((BuildContext context) =>
+    SpotOrg? spotOrg = await onContext((BuildContext context) =>
         changeSpotOrganization(context, SpotOrg('', '')));
 
     if (spotOrg != null) {
@@ -166,7 +166,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    String base64Image =
+    String? base64Image =
         await onContext((BuildContext context) => getSpotImage(context));
 
     if (base64Image != null) {
@@ -179,8 +179,8 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   Future<bool> handleApiRespSpot(ApiResp<Spot> apiResp) async {
-    return onContext((BuildContext context) async {
-          Spot spot = await apiResp.handle(context);
+    return await onContext((BuildContext context) async {
+          Spot? spot = await apiResp.handle(context);
           if (spot == null) {
             return false;
           } else {
@@ -188,8 +188,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
             await basicData.put(spotId: spot.id);
             return true;
           }
-        }) ??
-        false;
+        });
   }
 
   Future<void> fillInfo() async {

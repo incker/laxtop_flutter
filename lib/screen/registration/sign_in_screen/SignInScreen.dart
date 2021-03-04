@@ -12,11 +12,11 @@ import 'package:laxtop/screen/registration/sign_in_screen/AuthLogic.dart';
 import 'package:laxtop/screen/registration/sign_in_screen/EnterSmsScreen.dart';
 import 'package:laxtop/storage/BasicData.dart';
 
-Future<ApiResp<AuthorizedUserData>> userSignIn(BuildContext context) async {
-  auth.User user = await InputFieldManager(
+Future<ApiResp<AuthorizedUserData>?> userSignIn(BuildContext context) async {
+  auth.User? user = await InputFieldManager(
           BasicData().phone.replaceAll(RegExp(r'[^\d]'), ''))
-      .manage<auth.User>((InputFieldManager inputFieldManager) {
-    return Navigator.push<auth.User>(
+      .manage<auth.User?>((InputFieldManager inputFieldManager) {
+    return Navigator.push<auth.User?>(
       context,
       MaterialPageRoute(builder: (context) => SignInScreen(inputFieldManager)),
     );
@@ -35,7 +35,7 @@ class SignInScreen extends StatelessWidget {
   final InputFieldManager inputFieldManager;
   final AuthLogic authLogic = AuthLogic();
 
-  SignInScreen(this.inputFieldManager) : assert(inputFieldManager != null);
+  SignInScreen(this.inputFieldManager);
 
   String getNumber() {
     return '+' + inputFieldManager.value().replaceAll(RegExp(r'[^\d]'), '');
@@ -47,10 +47,10 @@ class SignInScreen extends StatelessWidget {
     if (_scaffoldKey.currentContext == null) {
       return;
     }
-    auth.User user =
-        await authBySms(_scaffoldKey.currentContext, authLogic, getNumber());
+    auth.User? user =
+        await authBySms(_scaffoldKey.currentContext!, authLogic, getNumber());
     if (user != null) {
-      Navigator.pop(_scaffoldKey.currentContext, user);
+      Navigator.pop(_scaffoldKey.currentContext!, user);
     }
   }
 

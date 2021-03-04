@@ -52,23 +52,18 @@ class UserData {
     });
 
     final List<List<int>> supplierUpdates = (json['suppliersShift'] as List)
-        ?.map((entries) =>
-            (entries as List)?.map((e) => e as int)?.toList(growable: false))
-        ?.toList(growable: false);
+        .map((entries) =>
+            (entries as List).map((e) => e as int).toList(growable: false))
+        .toList(growable: false);
 
     final List<int> promoIds = (json['promoIds'] as List)
-        ?.map((id) => id as int)
-        ?.toList(growable: false);
+        .map((id) => id as int)
+        .toList(growable: false);
 
     return UserData(spots, suppliers, supplierUpdates,
         InvoicePreviewBinary.fromJson(json['lastInvoicesPreview']), promoIds);
   }
 
   const UserData(this.spots, this.suppliers, this.suppliersShift,
-      this.lastInvoicesPreview, this.promoIds)
-      : assert(spots != null),
-        assert(suppliers != null),
-        assert(suppliersShift != null),
-        assert(lastInvoicesPreview != null),
-        assert(promoIds != null);
+      this.lastInvoicesPreview, this.promoIds);
 }

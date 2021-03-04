@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:laxtop/screen/orders_screen/widgets/InvoiceDate.dart';
 import 'package:laxtop/storage/BoxInitializer.dart';
@@ -15,8 +16,8 @@ class DraftBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box<InvoiceDraft>>(
-      valueListenable: InvoiceDraftBox().listenable(),
-      builder: (BuildContext context, Box<InvoiceDraft> box, Widget _child) {
+      valueListenable: InvoiceDraftBox().listenable() as ValueListenable<Box<InvoiceDraft>>,
+      builder: (BuildContext context, Box<InvoiceDraft> box, Widget? _child) {
         if (box.isEmpty) {
           return Container();
         }

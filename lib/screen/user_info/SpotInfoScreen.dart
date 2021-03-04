@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:laxtop/libs/EmptyBody.dart';
 import 'package:laxtop/model/spot/Spot.dart';
 
 class SpotInfoScreen extends StatelessWidget {
   final Spot spot;
 
-  SpotInfoScreen(this.spot, {Key key}) : super(key: key);
+  SpotInfoScreen(this.spot, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +12,19 @@ class SpotInfoScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(spot.address.address),
       ),
-      body: spot == null
-          ? EmptyBody()
-          : ListView(
-              children: <Widget>[
-                _ItemInfo('Адрес', spot.address.address),
-                spot.address.spotName.isNotEmpty
-                    ? _ItemInfo(spot.address.spotType, spot.address.spotName)
-                    : _ItemInfo('Тип Объекта', spot.address.spotType),
-                _ItemInfo(spot.spotOrg.orgType, spot.spotOrg.orgName),
-                if (spot.imageId.hasImage())
-                  Image.network(
-                    spot.imageId.original(),
-                  ),
-              ],
+      body: ListView(
+        children: <Widget>[
+          _ItemInfo('Адрес', spot.address.address),
+          spot.address.spotName.isNotEmpty
+              ? _ItemInfo(spot.address.spotType, spot.address.spotName)
+              : _ItemInfo('Тип Объекта', spot.address.spotType),
+          _ItemInfo(spot.spotOrg.orgType, spot.spotOrg.orgName),
+          if (spot.imageId.hasImage())
+            Image.network(
+              spot.imageId.original(),
             ),
+        ],
+      ),
     );
   }
 }
@@ -36,7 +33,7 @@ class _ItemInfo extends StatelessWidget {
   final String title;
   final String description;
 
-  _ItemInfo(this.title, this.description, {Key key}) : super(key: key);
+  _ItemInfo(this.title, this.description, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

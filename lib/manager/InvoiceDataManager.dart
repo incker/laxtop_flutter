@@ -9,7 +9,7 @@ class InvoiceDataManager extends Manager {
 
   Stream<Map<int, int>> get stream$ => currentData.stream;
 
-  int getAmount(Product product) => data[product.id];
+  int? getAmount(Product product) => data[product.id];
 
   void setAmount(Product product, int amount) {
     if (amount < 1) {

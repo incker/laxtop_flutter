@@ -20,7 +20,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:path/path.dart' as p;
 
 class InitHive extends ProcessInit {
-  List<Type> after() => List(0);
+  List<Type> after() => [];
 
   Future<void> init() async {
     Hive.init((await boxDirectory()).path);

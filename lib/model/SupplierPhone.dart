@@ -9,9 +9,7 @@ class SupplierPhone {
   @HiveField(1)
   final String number;
 
-  const SupplierPhone(this.position, this.number)
-      : assert(position != null),
-        assert(number != null);
+  const SupplierPhone(this.position, this.number);
 
   factory SupplierPhone.fromJson(Map<String, dynamic> json) {
     final String position = json['position'] as String;

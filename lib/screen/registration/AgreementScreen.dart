@@ -8,7 +8,7 @@ Future<bool> acceptAgreement(BuildContext context) => Navigator.push(
     ).then((accepted) => accepted == true);
 
 class _AgreementScreen extends StatelessWidget {
-  _AgreementScreen({Key key}) : super(key: key);
+  _AgreementScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _AgreementScreen extends StatelessWidget {
           value: true,
           title: Text(
               'Соглашаюсь с тем что указанные мною данные будут переданы только тем поставщикам, у которых вы сделали заказ'),
-          onChanged: (bool value) {
+          onChanged: (bool? value) {
             // todo?
           }),
       SizedBox(height: 30.0),

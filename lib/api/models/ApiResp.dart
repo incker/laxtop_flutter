@@ -6,20 +6,23 @@ import 'package:laxtop/libs/showErrorDialog.dart';
 import 'package:laxtop/storage/HiveHelper.dart';
 
 class ApiResp<T> {
-  final T _result;
-  final ApiFieldErrors _fieldError;
-  final ApiRequestError _requestError;
+  final T? _result;
+  final ApiFieldErrors? _fieldError;
+  final ApiRequestError? _requestError;
 
-  ApiResp.result(this._result)
-      : _fieldError = null,
+  ApiResp.result(T _result)
+      : this._result = _result,
+        _fieldError = null,
         _requestError = null;
 
-  ApiResp.fieldErrors(this._fieldError)
-      : _result = null,
+  ApiResp.fieldErrors(ApiFieldErrors _fieldError)
+      : this._fieldError = _fieldError,
+        _result = null,
         _requestError = null;
 
-  ApiResp.requestError(this._requestError)
-      : _result = null,
+  ApiResp.requestError(ApiRequestError _requestError)
+      : this._requestError = _requestError,
+        _result = null,
         _fieldError = null;
 
   // for DataWrapper
@@ -28,35 +31,41 @@ class ApiResp<T> {
       E unwrappedResult = (_result as DataWrapper).data as E;
       return ApiResp.result(unwrappedResult);
     }
-    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError);
-    if (_requestError != null) return ApiResp.requestError(_requestError);
-    return null;
+    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError!);
+    if (_requestError != null) return ApiResp.requestError(_requestError!);
+    return unreachableError<E>();
   }
 
   // mutate result type
   ApiResp<E> mapResp<E>(E Function(T) func) {
     if (_result != null) {
-      E res = func(_result);
+      E res = func(_result!);
       return ApiResp.result(res);
     }
-    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError);
-    if (_requestError != null) return ApiResp.requestError(_requestError);
-    return null;
+    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError!);
+    if (_requestError != null) return ApiResp.requestError(_requestError!);
+    return unreachableError<E>();
   }
 
   ApiResp<E> map<E>(E Function(T) func) {
     if (_result != null) {
-      E newResult = func(_result);
+      E newResult = func(_result!);
       return ApiResp.result(newResult);
     }
-    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError);
-    if (_requestError != null) return ApiResp.requestError(_requestError);
-    return null;
+    if (_fieldError != null) return ApiResp.fieldErrors(_fieldError!);
+    if (_requestError != null) return ApiResp.requestError(_requestError!);
+    return unreachableError<E>();
+  }
+
+  ApiResp<E> unreachableError<E>() {
+    return ApiResp<E>.fieldErrors(ApiFieldErrors([
+      ['other', 'unreachable ApiResp unwrap']
+    ]));
   }
 
   /*
   Future<bool> handleResp(
-      {@required Function(T) onResult,
+      {required Function(T) onResult,
       Function(ApiFieldErrors) onFieldError,
       Function(ApiRequestError) onRequestError,
       Function() onAnyError}) async {
@@ -74,21 +83,28 @@ class ApiResp<T> {
   }
   */
 
-  Future<T> handle(BuildContext context) async {
+  Future<T?> handle(BuildContext? context) async {
     if (_result != null) {
-      return _result;
+      return _result!;
     } else if (_fieldError != null) {
-      for (List<String> error in _fieldError.errors) {
-        await showErrorDialog(context, '___${error[1]}', errorTitle: error[0]);
+      for (List<String> error in _fieldError!.errors) {
+        if (context != null) {
+          await showErrorDialog(context, '___${error[1]}',
+              errorTitle: error[0]);
+        }
       }
     } else if (_requestError != null) {
-      if (_requestError.statusCode == 401) {
+      if (_requestError!.statusCode == 401) {
         // logOut
-        Navigator.of(context).popUntil((route) => route.isFirst);
+        if (context != null) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        }
         await HiveHelper.clean(newToken: '');
       } else {
-        await showErrorDialog(context, _requestError.apiError.toString(),
-            errorTitle: 'response: ${_requestError.statusCode}');
+        if (context != null) {
+          await showErrorDialog(context, _requestError!.apiError.toString(),
+              errorTitle: 'response: ${_requestError!.statusCode}');
+        }
       }
     }
     return null;
@@ -96,7 +112,7 @@ class ApiResp<T> {
 
   Future<void> rawResultAccess(Future<void> Function(T) func) async {
     if (_result != null) {
-      await func(_result);
+      await func(_result!);
     }
   }
 }

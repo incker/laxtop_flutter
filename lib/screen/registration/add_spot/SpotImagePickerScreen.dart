@@ -7,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:laxtop/libs/Observer.dart';
 import 'package:laxtop/manager/FileUploadManager.dart';
 
-Future<String> getSpotImage(BuildContext context) async {
+Future<String?> getSpotImage(BuildContext context) async {
   return FileUploadManager()
-      .manage<String>((FileUploadManager fileUploadManager) async {
-    return Navigator.push(
+      .manage<String?>((FileUploadManager fileUploadManager) async {
+    return Navigator.push<String?>(
       context,
       MaterialPageRoute(
           builder: (context) => _SpotImagePickerScreen(fileUploadManager)),
@@ -21,7 +21,7 @@ Future<String> getSpotImage(BuildContext context) async {
 class _SpotImagePickerScreen extends StatelessWidget {
   final FileUploadManager fileUploadManager;
 
-  _SpotImagePickerScreen(this.fileUploadManager, {Key key})
+  _SpotImagePickerScreen(this.fileUploadManager, {Key? key})
       : assert(fileUploadManager != null),
         super(key: key);
 
@@ -29,7 +29,7 @@ class _SpotImagePickerScreen extends StatelessWidget {
 
   void _pickImageFromGallery() async {
     final picker = ImagePicker();
-    PickedFile file = await picker.getImage(source: ImageSource.gallery);
+    PickedFile? file = await picker.getImage(source: ImageSource.gallery);
     if (file != null) {
       fileUploadManager.inFile.add(File(file.path));
     }
@@ -89,7 +89,7 @@ class _SpotImagePickerScreen extends StatelessWidget {
                       border: Border.all(
                           width: 1,
                           style: BorderStyle.solid,
-                          color: Colors.grey[600]),
+                          color: Colors.grey[600]!),
                     ),
                     child: Icon(
                       FontAwesomeIcons.camera,

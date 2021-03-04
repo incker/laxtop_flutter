@@ -14,7 +14,7 @@ class ImageId {
 
   factory ImageId(int imageId) {
     if (_cache.containsKey(imageId)) {
-      return _cache[imageId];
+      return _cache[imageId]!;
     } else {
       final String radix36Id = imageId.toRadixString(36).padLeft(7, '0');
       return _cache[imageId] = ImageId._inner(
@@ -37,3 +37,25 @@ class ImageId {
 
   String thumbnail() => '${ApiCore.domain}i/t/$_path.jpg';
 }
+
+
+
+/*
+TODO better?
+abstract class ImageIdManager {
+  static final Map<int, String> _cache = {};
+
+  static idToPath(int imageId) => _cache.containsKey(imageId)
+      ? _cache[imageId]!
+      : _cache[imageId] = _idToPath(imageId);
+
+  static String _idToPath(int imageId) {
+    final String radix36Id = imageId.toRadixString(36).padLeft(7, '0');
+    return radix36Id.substring(0, 3) +
+        '/' +
+        radix36Id.substring(3, 5) +
+        '/' +
+        radix36Id.substring(5, 7);
+  }
+}
+*/
