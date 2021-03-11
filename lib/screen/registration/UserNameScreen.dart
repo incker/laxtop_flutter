@@ -4,7 +4,11 @@ import 'package:laxtop/libs/RxTextField.dart';
 import 'package:laxtop/manager/InputFieldManager.dart';
 import 'package:laxtop/manager/Validation.dart';
 
-Future<String> inputUserName(BuildContext context) async {
+Future<String?> inputUserName(BuildContext? context) async {
+  if (context == null) {
+    return null;
+  }
+
   return InputFieldManager('', validation: Validation.notEmpty)
       .manage((InputFieldManager inputAmountManager) async {
     String? name = await Navigator.push<String?>(

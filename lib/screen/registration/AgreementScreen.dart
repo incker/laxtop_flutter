@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:laxtop/libs/CenterScreenWrapper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Future<bool> acceptAgreement(BuildContext context) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => _AgreementScreen()),
-    ).then((accepted) => accepted == true);
+Future<bool> acceptAgreement(BuildContext? context) async {
+  if (context == null) {
+    return false;
+  }
+  bool? accepted = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => _AgreementScreen()),
+  );
+  return accepted == true;
+};
 
 class _AgreementScreen extends StatelessWidget {
   _AgreementScreen({Key? key}) : super(key: key);

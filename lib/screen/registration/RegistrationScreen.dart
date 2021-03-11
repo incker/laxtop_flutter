@@ -35,14 +35,6 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   GeoLocation? location;
   Spot? spot;
 
-  Future<T?> onContext<T>(Future<T> Function(BuildContext) func) async {
-    BuildContext? context = _scaffoldKey.currentContext;
-    if (context != null) {
-      return func(context);
-    }
-    return null;
-  }
-
   changeProgress({
     GeoLocation? location,
     bool? agreementAccepted,
@@ -50,8 +42,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     setState(() {
       spot = spotBox.get(basicData.spotId);
       this.location = location ?? this.location;
-      this.agreementAccepted =
-          agreementAccepted ?? this.agreementAccepted;
+      this.agreementAccepted = agreementAccepted ?? this.agreementAccepted;
     });
   }
 
@@ -60,12 +51,13 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
     ApiResp<AuthorizedUserData>? apiResp =
-        await onContext((BuildContext context) => userSignIn(context));
+        await userSignIn(_scaffoldKey.currentContext);
     if (apiResp == null) {
       return false;
     }
-    AuthorizedUserData authorizedUserData =
-        await onContext((BuildContext context) => apiResp.handle(context));
+
+    AuthorizedUserData? authorizedUserData =
+        await apiResp.handle(_scaffoldKey.currentContext);
     if (authorizedUserData == null) {
       return false;
     }
@@ -79,15 +71,12 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     if (agreementAccepted) {
       return true;
     }
-    bool accepted =
-        await onContext((BuildContext context) => acceptAgreement(context)) ??
-            false;
+
+    bool accepted = await acceptAgreement(_scaffoldKey.currentContext);
     if (accepted) {
       ApiResp<bool> apiResp = await Api.setUserLicenseAccepted(true);
-      accepted =
-          await onContext((BuildContext context) => apiResp.handle(context)) ??
-              false;
-      changeProgress(agreementAccepted: accepted);
+      bool? accepted = await apiResp.handle(_scaffoldKey.currentContext);
+      changeProgress(agreementAccepted: accepted ?? false);
     }
     return accepted;
   }
@@ -97,13 +86,12 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    String name =
-        await onContext((BuildContext context) => inputUserName(context)) ?? '';
+    String name = await inputUserName(_scaffoldKey.currentContext) ?? '';
+
     if (name.isNotEmpty) {
       ApiResp<String> apiResp = await Api.setUserName(name);
-      String formattedName = await onContext(
-              (BuildContext context) => (apiResp).handle(context)) ??
-          '';
+      String formattedName =
+          await (apiResp).handle(_scaffoldKey.currentContext) ?? '';
       await basicData.put(name: formattedName);
       changeProgress();
       return true;
@@ -115,11 +103,9 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     if (spot != null || location != null) {
       return true;
     }
-
-    GeoLocation geoLocation =
-        (await waitingIpLocation)?.location ?? GeoLocation.kiev();
-    GeoLocation newLocation = await onContext(
-        (BuildContext context) => getGoogleMapPosition(context, geoLocation));
+    GeoLocation geoLocation = (await waitingIpLocation).location;
+    GeoLocation? newLocation =
+        await getGoogleMapPosition(_scaffoldKey.currentContext, geoLocation);
     if (newLocation != null) {
       changeProgress(location: newLocation);
       return true;
@@ -132,8 +118,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    SelectedSpot selectedSpot = await onContext(
-        (BuildContext context) => selectSpotOrCreate(context, location));
+    SelectedSpot? selectedSpot = await selectSpotOrCreate(context, location);
 
     if (selectedSpot != null) {
       ApiResp<Spot> apiResp = await selectedSpot.submitUserSpot(location);
@@ -149,8 +134,8 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    SpotOrg? spotOrg = await onContext((BuildContext context) =>
-        changeSpotOrganization(context, SpotOrg('', '')));
+    SpotOrg? spotOrg = await changeSpotOrganization(
+        _scaffoldKey.currentContext, SpotOrg('', ''));
 
     if (spotOrg != null) {
       ApiResp<Spot> apiResp = await Api.setSpotOrganization(spotOrg);
@@ -166,8 +151,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    String? base64Image =
-        await onContext((BuildContext context) => getSpotImage(context));
+    String? base64Image = await getSpotImage(_scaffoldKey.currentContext);
 
     if (base64Image != null) {
       ApiResp<Spot> apiResp = await Api.setSpotImage(base64Image);
@@ -179,16 +163,14 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   Future<bool> handleApiRespSpot(ApiResp<Spot> apiResp) async {
-    return await onContext((BuildContext context) async {
-          Spot? spot = await apiResp.handle(context);
-          if (spot == null) {
-            return false;
-          } else {
-            await spotBox.put(spot.id, spot);
-            await basicData.put(spotId: spot.id);
-            return true;
-          }
-        });
+    Spot? spot = await apiResp.handle(context);
+    if (spot == null) {
+      return false;
+    } else {
+      await spotBox.put(spot.id, spot);
+      await basicData.put(spotId: spot.id);
+      return true;
+    }
   }
 
   Future<void> fillInfo() async {

@@ -7,7 +7,11 @@ import 'package:laxtop/model/GeoLocation.dart';
 import 'package:laxtop/screen/registration/OfferAddLocationScreen.dart';
 
 Future<GeoLocation?> getGoogleMapPosition(
-    BuildContext context, GeoLocation initialGeoLocation) async {
+    BuildContext? context, GeoLocation initialGeoLocation) async {
+  if (context == null) {
+    return null;
+  }
+
   if (await acceptOfferAddLocation(context) == false) {
     return null;
   }

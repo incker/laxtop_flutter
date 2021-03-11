@@ -29,7 +29,7 @@ class EnterSmsScreen extends StatelessWidget {
 
   String getFieldSms() {
     final RegExp regex = RegExp(r'[^\d]');
-    return (inputFieldManager.value() ?? '').replaceAll(regex, '');
+    return inputFieldManager.value().replaceAll(regex, '');
   }
 
   Future<void> verifySmsCode() async {

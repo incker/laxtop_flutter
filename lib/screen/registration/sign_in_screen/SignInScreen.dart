@@ -12,7 +12,11 @@ import 'package:laxtop/screen/registration/sign_in_screen/AuthLogic.dart';
 import 'package:laxtop/screen/registration/sign_in_screen/EnterSmsScreen.dart';
 import 'package:laxtop/storage/BasicData.dart';
 
-Future<ApiResp<AuthorizedUserData>?> userSignIn(BuildContext context) async {
+Future<ApiResp<AuthorizedUserData>?> userSignIn(BuildContext? context) async {
+  if (context == null) {
+    return null;
+  }
+
   auth.User? user = await InputFieldManager(
           BasicData().phone.replaceAll(RegExp(r'[^\d]'), ''))
       .manage<auth.User?>((InputFieldManager inputFieldManager) {

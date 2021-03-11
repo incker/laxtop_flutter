@@ -12,9 +12,13 @@ import 'package:laxtop/screen/registration/add_spot/ChangeSpotAddressScreen.dart
 import 'package:laxtop/screen/registration/add_spot/SpotsNearbyCarouselScreen.dart';
 import 'package:laxtop/screen/user_info/SpotAddressScreen.dart';
 
-Future<SelectedSpot> selectSpotOrCreate(
-    BuildContext context, GeoLocation location) async {
-  SelectedSpot selectedSpot = await Navigator.push(
+Future<SelectedSpot?> selectSpotOrCreate(
+    BuildContext? context, GeoLocation location) async {
+  if (context == null) {
+    return null;
+  }
+
+  SelectedSpot? selectedSpot = await Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => SpotsNearbyGridScreen(location)),
   );
@@ -35,7 +39,8 @@ class SpotsNearbyGridScreen extends StatelessWidget {
         await showSpotCarousel(context, spotsNearby, index);
 
     if (selectedSpot != null && selectedSpot.spot != null) {
-      bool applied = await applySpotAddress(context, selectedSpot.spot!.address);
+      bool applied =
+          await applySpotAddress(context, selectedSpot.spot!.address);
       if (applied) {
         Navigator.pop(context, selectedSpot);
       }

@@ -62,12 +62,14 @@ abstract class ApiCore {
   }
 
   static Future<Map<String, dynamic>> _get(String path) {
-    return http.get(baseUrl + path, headers: headers).then(handleResp);
+    return http
+        .get(Uri(path: baseUrl + path), headers: headers)
+        .then(handleResp);
   }
 
   static Future<Map<String, dynamic>> _post(String path, String jsonBody) {
     return http
-        .post(baseUrl + path, headers: postHeaders, body: jsonBody)
+        .post(Uri(path: baseUrl + path), headers: postHeaders, body: jsonBody)
         .then(handleResp);
   }
 

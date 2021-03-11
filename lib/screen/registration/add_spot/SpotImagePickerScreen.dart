@@ -7,7 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:laxtop/libs/Observer.dart';
 import 'package:laxtop/manager/FileUploadManager.dart';
 
-Future<String?> getSpotImage(BuildContext context) async {
+Future<String?> getSpotImage(BuildContext? context) async {
+  if (context == null) {
+    return null;
+  }
+
   return FileUploadManager()
       .manage<String?>((FileUploadManager fileUploadManager) async {
     return Navigator.push<String?>(
