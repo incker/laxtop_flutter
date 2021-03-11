@@ -30,7 +30,9 @@ class SearchProductDelegate extends SearchDelegate<Product> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, null);
+        // todo test it instead of close
+        Navigator.pop(context);
+        // close(context, null);
       },
     );
   }
