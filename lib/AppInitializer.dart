@@ -15,7 +15,7 @@ import 'package:hive/hive.dart';
 import 'package:laxtop/storage/promo/PromoCacheManager.dart';
 
 abstract class AppInitializer {
-  static Future<UserData?> initUser(BuildContext Function() getContext) async {
+  static Future<UserData?> initUser(BuildContext? Function() getContext) async {
     // basic request
     Future<ApiResp<UserData>> waitingUserData = Api.getUserData();
     await BoxInitializer.initMemoryBoxes();
@@ -29,7 +29,7 @@ abstract class AppInitializer {
   }
 
   static Future<void> saveUserData(
-      BuildContext context, UserData userData) async {
+      BuildContext? context, UserData userData) async {
     // boxes
     Box<SupplierHeader> supplierHeaderBox = SupplierHeaderBox().box();
     Box<SpotSupplierSequence> spotSupplierSequenceBox =
@@ -62,7 +62,7 @@ abstract class AppInitializer {
   }
 
   /// download all invoices
-  static Future<void> getAllInvoicePreviewList(BuildContext context) async {
+  static Future<void> getAllInvoicePreviewList(BuildContext? context) async {
     InvoicePreviewBinary? invoicePreviewBinary =
         await (await Api.getLastInvoicePreviewList()).handle(context);
 
