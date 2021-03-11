@@ -15,14 +15,15 @@ class OrdersHandler extends StatelessWidget {
   OrdersHandler(this.showSnackBar) : super(key: ObjectKey('OrdersHandler'));
 
   Widget invoiceByIndex(int reversedIndex) {
-    final InvoiceHeader? currentInvoiceHeader = boxInvoiceHeader.getAt(reversedIndex);
+    final InvoiceHeader currentInvoiceHeader =
+        boxInvoiceHeader.getAt(reversedIndex)!;
 
     final String currentInvoiceDate =
         InvoiceDate.toDate(currentInvoiceHeader.creationId * 1000);
 
     final String nextInvoiceDate = (reversedIndex >= 1)
         ? InvoiceDate.toDate(
-            boxInvoiceHeader.getAt(reversedIndex - 1).creationId * 1000)
+            boxInvoiceHeader.getAt(reversedIndex - 1)!.creationId * 1000)
         : '';
 
     if (currentInvoiceDate == nextInvoiceDate) {
@@ -40,8 +41,10 @@ class OrdersHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box<InvoiceHeader>>(
-        valueListenable: InvoiceHeaderBox().listenable() as ValueListenable<Box<InvoiceHeader>>,
-        builder: (BuildContext context, Box<InvoiceHeader> box, Widget? _child) {
+        valueListenable: InvoiceHeaderBox().listenable()
+            as ValueListenable<Box<InvoiceHeader>>,
+        builder:
+            (BuildContext context, Box<InvoiceHeader> box, Widget? _child) {
           final int boxLength = box.length;
 
           return ListView.builder(
