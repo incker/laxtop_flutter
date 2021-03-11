@@ -19,9 +19,9 @@ class SpotInfoScreen extends StatelessWidget {
               ? _ItemInfo(spot.address.spotType, spot.address.spotName)
               : _ItemInfo('Тип Объекта', spot.address.spotType),
           _ItemInfo(spot.spotOrg.orgType, spot.spotOrg.orgName),
-          if (spot.imageId.hasImage())
+          if (spot.hasImage())
             Image.network(
-              spot.imageId.original(),
+              spot.originalImage(),
             ),
         ],
       ),

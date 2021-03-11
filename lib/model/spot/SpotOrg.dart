@@ -11,9 +11,15 @@ class SpotOrg {
 
   const SpotOrg(this.orgType, this.orgName);
 
-  factory SpotOrg.dummy() {
-    return SpotOrg('ФОП', 'Иванова И.И');
-  }
+  SpotOrg.empty()
+      : this.orgType = '',
+        this.orgName = '';
+
+  SpotOrg.dummy()
+      : this.orgType = 'ФОП',
+        this.orgName = 'Иванова И.И';
+
+  isValid() => orgType.isNotEmpty && orgName.isNotEmpty;
 
   factory SpotOrg.fromJson(Map<String, dynamic> json) {
     return SpotOrg(
@@ -21,9 +27,6 @@ class SpotOrg {
       json['orgName'] as String,
     );
   }
-
-  // костыль, но пока норм
-  isValid() => orgType.isNotEmpty && orgName.isNotEmpty;
 
   Map<String, dynamic> toJson() => {
         'orgType': orgType,

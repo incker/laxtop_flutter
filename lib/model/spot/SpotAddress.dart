@@ -13,6 +13,10 @@ class SpotAddress {
 
   const SpotAddress(this.address, this.spotType, this.spotName);
 
+  factory SpotAddress.empty() {
+    return SpotAddress('', '', '');
+  }
+
   factory SpotAddress.dummy() {
     return SpotAddress('Автомагистральная 32А', 'Киоск', '"Чебурум"');
   }

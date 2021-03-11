@@ -130,7 +130,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   Future<bool> requireAddSpotOrg() async {
-    if (spot?.spotOrg?.isValid() == true) {
+    if (spot?.spotOrg.isValid() == true) {
       return true;
     }
 
@@ -147,7 +147,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   }
 
   Future<bool> requireSpotImage() async {
-    if (spot != null && spot.imageId.hasImage() == true) {
+    if (spot != null && spot!.hasImage()) {
       return true;
     }
 
@@ -227,7 +227,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                   ),
                   trailing: Icon(FontAwesomeIcons.check, color: Colors.green),
                   title: Text('Точка отмечена на карте'),
-                  subtitle: Text(spot?.address?.spotType ?? '...'),
+                  subtitle: Text(spot?.address.spotType ?? '...'),
                   onTap: () {
                     // ??
                   },

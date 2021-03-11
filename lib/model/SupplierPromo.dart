@@ -1,27 +1,27 @@
 import 'package:laxtop/api/ApiCore.dart';
-import 'package:laxtop/model/ImageId.dart';
+import 'package:laxtop/model/ImageIdHandler.dart';
 import 'package:laxtop/model/PromoStatus.dart';
 import 'package:hive/hive.dart';
 
 part 'SupplierPromo.g.dart';
 
 @HiveType(typeId: 10)
-class SupplierPromo {
+class SupplierPromo extends ImageIdHandler {
   @HiveField(0)
   final int id;
   @HiveField(1)
   final int supplierId;
   @HiveField(2)
-  final ImageId imageId;
+  final int imageId;
   @HiveField(3)
   final PromoStatus status;
 
-  const SupplierPromo(this.id, this.supplierId, this.imageId, this.status);
+  SupplierPromo(this.id, this.supplierId, this.imageId, this.status);
 
   SupplierPromo copyWith({
     int? id,
     int? supplierId,
-    ImageId? imageId,
+    int? imageId,
     PromoStatus? status,
   }) {
     return SupplierPromo(id ?? this.id, supplierId ?? this.supplierId,
@@ -45,6 +45,8 @@ class SupplierPromo {
     }
     return count;
   }
+
+  int getImageId() => imageId;
 
   static int countNotFreshPromos(Box<SupplierPromo> box) {
     int count = 0;
