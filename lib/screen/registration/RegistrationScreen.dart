@@ -118,7 +118,8 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       return true;
     }
 
-    SelectedSpot? selectedSpot = await selectSpotOrCreate(context, location);
+    SelectedSpot? selectedSpot =
+        await selectSpotOrCreate(_scaffoldKey.currentContext, location);
 
     if (selectedSpot != null) {
       ApiResp<Spot> apiResp = await selectedSpot.submitUserSpot(location);
