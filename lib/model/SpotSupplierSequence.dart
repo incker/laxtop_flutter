@@ -16,9 +16,7 @@ class SpotSupplierSequence {
 
   bool isNotEqual(SpotSupplierSequence spotSequence) => !isEqual(spotSequence);
 
-  const SpotSupplierSequence(this.id, this.sequence)
-      : assert(id != null),
-        assert(sequence != null);
+  const SpotSupplierSequence(this.id, this.sequence);
 
   factory SpotSupplierSequence.fromJson(Map<String, dynamic> json) {
     List<int> sequence = (json['sequence'] as List).cast<int>();

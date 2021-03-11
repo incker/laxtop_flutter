@@ -11,7 +11,7 @@ class InputFieldManager extends Manager {
   bool get hasValue => _fieldValue.hasValue;
 
   factory InputFieldManager(String defaultValue,
-      {String Function(String) validation}) {
+      {String Function(String)? validation}) {
     final BehaviorSubject<String> _fieldValue =
         BehaviorSubject<String>.seeded(defaultValue);
 

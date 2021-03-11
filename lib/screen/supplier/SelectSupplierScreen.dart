@@ -61,8 +61,10 @@ class _SelectSupplierScreen extends StatelessWidget {
   final Box<SupplierHeader> supplierHeadersBox = SupplierHeaderBox().box();
 
   void makeReorder(Reorder reorder) {
-    List<int> supplierSequence =
-        List.from(spotSupplierSequenceBox.get(spotId).sequence);
+    SpotSupplierSequence? sss = spotSupplierSequenceBox.get(spotId);
+
+    List<int> supplierSequence = (sss == null) ? [] : List.from(sss.sequence);
+
     supplierSequence.insert(
         reorder.newIndex, supplierSequence.removeAt(reorder.oldIndex));
     SpotSupplierSequence userSpot =
@@ -82,7 +84,8 @@ class _SelectSupplierScreen extends StatelessWidget {
           title: Text('Выберите поставщика'),
         ),
         body: ValueListenableBuilder<Box<SpotSupplierSequence>>(
-            valueListenable: SpotSupplierSequenceBox().listenable() as ValueListenable<Box<SpotSupplierSequence>>,
+            valueListenable: SpotSupplierSequenceBox().listenable()
+                as ValueListenable<Box<SpotSupplierSequence>>,
             builder: (BuildContext context, Box<SpotSupplierSequence> box,
                 Widget? _child) {
               final List<int> supplierIdSequence =

@@ -17,7 +17,7 @@ class InvoicePreviewBinary {
   }
 
   factory InvoicePreviewBinary.fromJson(Map<String, dynamic> json) {
-    List list = json['data'] as List;
+    List? list = json['data'] as List?;
 
     if (list == null) {
       print("json['data'] == null");

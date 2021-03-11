@@ -2,7 +2,7 @@ import 'dart:async';
 
 mixin Validation {
   static String notEmpty(String value) {
-    if (value == null || value == '') {
+    if (value == '') {
       return 'Поле не должно быть пустым';
     }
     return '';

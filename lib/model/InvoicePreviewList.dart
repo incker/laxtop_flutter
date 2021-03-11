@@ -5,7 +5,7 @@ import 'package:laxtop/model/InvoicePreviewBinary.dart';
 class InvoicePreviewList {
   final List<InvoiceHeader> data;
 
-  InvoicePreviewList(this.data) : assert(data != null);
+  InvoicePreviewList(this.data);
 
   static Future<InvoicePreviewList> fromInvoicePreviewBinary(
       InvoicePreviewBinary invoicePreviewBinary) async {

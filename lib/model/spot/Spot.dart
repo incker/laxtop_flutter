@@ -26,6 +26,8 @@ class Spot {
   bool hasNotOrganization() =>
       spotOrg.orgName.isEmpty && spotOrg.orgType.isEmpty;
 
+  // todo empty spot?
+
   static Spot get currentSpot => SpotBox().box().get(BasicData().spotId);
 
   factory Spot.fromJson(Map<String, dynamic> json) {

@@ -31,7 +31,7 @@ class AuthLogic {
     };
 
     final auth.PhoneCodeSent codeSent =
-        (String verificationId, [int forceResendingToken]) async {
+        (String verificationId, [int? forceResendingToken]) async {
       _verificationId = verificationId;
       onOk();
     };
@@ -52,23 +52,16 @@ class AuthLogic {
   }
 
   /// validate by _verificationId + smsCode
-  Future<auth.User> signInWithPhoneNumber(String smsCode) async {
+  Future<auth.User?> signInWithPhoneNumber(String smsCode) async {
     final auth.AuthCredential credential = auth.PhoneAuthProvider.credential(
       verificationId: _verificationId,
       smsCode: smsCode,
     );
 
-    // try {
-    final auth.User user = (await _auth.signInWithCredential(credential)).user;
-    // final FirebaseUser currentUser = await _auth.currentUser();
-    // assert(user.uid == currentUser.uid);
-    return user;
-    //} catch (e) {
-    //return null;
-    //}
+    return (await _auth.signInWithCredential(credential)).user;
   }
 
-  Future<auth.User> getUser() async {
+  Future<auth.User?> getUser() async {
     return _auth.currentUser;
   }
 }

@@ -24,13 +24,13 @@ class SupplierInfo {
 
   static Future<ApiResp<SupplierInfo>> getById(int supplierId) async {
     LazyBox<SupplierInfo> supplierInfoBox = await SupplierInfoBox().initBox();
-    SupplierInfo info = await supplierInfoBox.get(supplierId);
+    SupplierInfo? info = await supplierInfoBox.get(supplierId);
     if (info != null) {
       return ApiResp.result(info);
     } else {
       ApiResp<SupplierInfo> apiResp = await Api.getSupplierInfo(supplierId);
       apiResp.rawResultAccess((SupplierInfo invoiceData) async {
-        await supplierInfoBox.put(supplierId, info);
+        await supplierInfoBox.put(supplierId, info!);
         await supplierInfoBox.compact();
       });
       return apiResp;

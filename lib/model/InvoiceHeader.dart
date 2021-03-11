@@ -28,10 +28,7 @@ class InvoiceHeader {
     return supplierHeader.name;
   }
 
-  const InvoiceHeader(this.creationId, this.supplierId, this.positionCount)
-      : assert(creationId != null),
-        assert(supplierId != null),
-        assert(positionCount != null);
+  const InvoiceHeader(this.creationId, this.supplierId, this.positionCount);
 
   String readablePositionCount() {
     int r = positionCount % 10;
@@ -52,7 +49,7 @@ class InvoiceHeader {
   Future<ApiResp<InvoiceData>> getInvoiceData() async {
     LazyBox<InvoiceData> lazyBox = await InvoiceDataBox().initBox();
 
-    InvoiceData invoiceData = await lazyBox.get(creationId);
+    InvoiceData? invoiceData = await lazyBox.get(creationId);
     if (invoiceData == null) {
       ApiResp<InvoiceData> apiResp = await Api.getInvoiceData(creationId);
       apiResp.rawResultAccess((InvoiceData invoiceData) async {

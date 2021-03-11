@@ -6,15 +6,13 @@ class IpApiLocation {
   final String countryCode;
   final GeoLocation location;
 
-  const IpApiLocation(this.countryCode, this.location)
-      : assert(countryCode != null),
-        assert(location != null);
+  const IpApiLocation(this.countryCode, this.location);
 
   static Future<IpApiLocation> detectLocation() async {
     Map<String, dynamic> map = await () async {
       try {
         String body = await http
-            .get('http://ip-api.com/json?fields=194')
+            .get(Uri(path: 'http://ip-api.com/json?fields=194'))
             .then((http.Response response) => utf8.decode(response.bodyBytes));
         return json.decode(body);
       } catch (e) {

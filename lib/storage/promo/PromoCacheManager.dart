@@ -79,7 +79,7 @@ class PromoCacheManager {
   }
 
   static Future<Uint8List> downloadFile(String url, String filePath) async {
-    final resp = await http.get(url);
+    final resp = await http.get(Uri(path: url));
     final Uint8List bytes = resp.bodyBytes;
     final File file = File(filePath);
     await file.writeAsBytes(bytes);

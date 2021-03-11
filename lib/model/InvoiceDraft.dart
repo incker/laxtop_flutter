@@ -12,7 +12,8 @@ class InvoiceDraft {
   final Map<int, int> data;
 
   SupplierHeader get supplierHeader =>
-      SupplierHeaderBox().box().get(supplierId);
+      SupplierHeaderBox().box().get(supplierId) ??
+      SupplierHeader.unknown(supplierId);
 
   const InvoiceDraft(this.supplierId, this.data);
 
@@ -57,9 +58,7 @@ class InvoiceResult {
   final bool wasSent;
   final InvoiceDraft draftToSave;
 
-  const InvoiceResult.sent(this.draftToSave)
-      : wasSent = true;
+  const InvoiceResult.sent(this.draftToSave) : wasSent = true;
 
-  const InvoiceResult.draft(this.draftToSave)
-      : wasSent = false;
+  const InvoiceResult.draft(this.draftToSave) : wasSent = false;
 }

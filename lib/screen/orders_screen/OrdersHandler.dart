@@ -15,7 +15,7 @@ class OrdersHandler extends StatelessWidget {
   OrdersHandler(this.showSnackBar) : super(key: ObjectKey('OrdersHandler'));
 
   Widget invoiceByIndex(int reversedIndex) {
-    final currentInvoiceHeader = boxInvoiceHeader.getAt(reversedIndex);
+    final InvoiceHeader? currentInvoiceHeader = boxInvoiceHeader.getAt(reversedIndex);
 
     final String currentInvoiceDate =
         InvoiceDate.toDate(currentInvoiceHeader.creationId * 1000);

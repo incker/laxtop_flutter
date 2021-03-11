@@ -34,7 +34,7 @@ abstract class LazyBoxInitializer<T> {
     return Hive.lazyBox(boxName());
   }
 
-  Future<T> get(int key) async {
+  Future<T?> get(int key) async {
     LazyBox<T> lazyBox = await initBox();
     return await lazyBox.get(key);
   }

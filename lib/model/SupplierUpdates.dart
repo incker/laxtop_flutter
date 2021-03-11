@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 class SupplierUpdates {
   final Map<int, int> data;
 
-  const SupplierUpdates(this.data) : assert(data != null);
+  const SupplierUpdates(this.data);
 
   Future<Box<int>> initBox() async {
     return await Hive.openBox<int>('supplier_updates');

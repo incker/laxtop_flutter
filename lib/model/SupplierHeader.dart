@@ -17,9 +17,7 @@ class SupplierHeader {
     return box;
   }
    */
-  const SupplierHeader(this.id, this.name)
-      : assert(id != null),
-        assert(name != null);
+  const SupplierHeader(this.id, this.name);
 
   factory SupplierHeader.unknown(int id) {
     return SupplierHeader(id, 'Supplier #' + id.toString());

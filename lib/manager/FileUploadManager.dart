@@ -11,7 +11,7 @@ class FileUploadManager extends Manager {
 
   bool get hasValue => _subjectFile.hasValue;
 
-  File value() {
+  File? value() {
     return _subjectFile.value;
   }
 

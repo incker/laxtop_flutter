@@ -11,7 +11,7 @@ Future<bool> acceptAgreement(BuildContext? context) async {
     MaterialPageRoute(builder: (context) => _AgreementScreen()),
   );
   return accepted == true;
-};
+}
 
 class _AgreementScreen extends StatelessWidget {
   _AgreementScreen({Key? key}) : super(key: key);

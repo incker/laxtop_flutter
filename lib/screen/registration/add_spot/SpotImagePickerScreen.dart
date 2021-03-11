@@ -25,9 +25,7 @@ Future<String?> getSpotImage(BuildContext? context) async {
 class _SpotImagePickerScreen extends StatelessWidget {
   final FileUploadManager fileUploadManager;
 
-  _SpotImagePickerScreen(this.fileUploadManager, {Key? key})
-      : assert(fileUploadManager != null),
-        super(key: key);
+  _SpotImagePickerScreen(this.fileUploadManager, {Key? key}) : super(key: key);
 
   // omitted
 
@@ -41,7 +39,7 @@ class _SpotImagePickerScreen extends StatelessWidget {
 
   void _pickImageFromCamera() async {
     final picker = ImagePicker();
-    PickedFile file = await picker.getImage(source: ImageSource.camera);
+    PickedFile? file = await picker.getImage(source: ImageSource.camera);
     if (file != null) {
       fileUploadManager.inFile.add(File(file.path));
     }

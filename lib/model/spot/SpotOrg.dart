@@ -9,9 +9,7 @@ class SpotOrg {
   @HiveField(1)
   final String orgName;
 
-  const SpotOrg(this.orgType, this.orgName)
-      : assert(orgType != null),
-        assert(orgName != null);
+  const SpotOrg(this.orgType, this.orgName);
 
   factory SpotOrg.dummy() {
     return SpotOrg('ФОП', 'Иванова И.И');

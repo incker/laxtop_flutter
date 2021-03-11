@@ -39,7 +39,7 @@ class EnterSmsScreen extends StatelessWidget {
     }
 
     try {
-      auth.User user = await authLogic.signInWithPhoneNumber(getFieldSms());
+      auth.User? user = await authLogic.signInWithPhoneNumber(getFieldSms());
       Navigator.pop(_scaffoldKey.currentContext!, user);
     } catch (e) {
       inputFieldManager.addError('$e');

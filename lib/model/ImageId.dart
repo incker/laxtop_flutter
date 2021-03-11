@@ -10,7 +10,7 @@ class ImageId {
   final int id;
   final String _path;
 
-  const ImageId._inner(this.id, this._path) : assert(_path != null);
+  const ImageId._inner(this.id, this._path);
 
   factory ImageId(int imageId) {
     if (_cache.containsKey(imageId)) {
@@ -37,8 +37,6 @@ class ImageId {
 
   String thumbnail() => '${ApiCore.domain}i/t/$_path.jpg';
 }
-
-
 
 /*
 TODO better?

@@ -44,14 +44,12 @@ class _LaxtopApp extends State<LaxtopApp> {
 
   void _userInitialize() async {
     _setUserStatus(UserStatus.userInitWaiting);
-    await AppInitializer.initUser(() => _scaffoldKey.currentContext)
-        .then((UserData userData) {
+    UserData? userData = await AppInitializer.initUser(() => _scaffoldKey.currentContext);
       if (userStatus != UserStatus.newUser) {
         _setUserStatus((userData == null)
             ? UserStatus.userInitError
             : UserStatus.userInitSuccess);
       }
-    });
   }
 
   void _checkUserStatus() {
